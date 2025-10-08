@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\MaterialType\Actions\CreateMaterialTypeAction;
-use App\MaterialType\Actions\DeleteMaterialTypeAction;
-use App\MaterialType\Actions\GetMaterialTypeListAction;
-use App\MaterialType\Actions\UpdateMaterialTypeAction;
+use App\Domain\MaterialType\Actions\CreateMaterialTypeAction;
+use App\Domain\MaterialType\Actions\DeleteMaterialTypeAction;
+use App\Domain\MaterialType\Actions\GetMaterialTypeListAction;
+use App\Domain\MaterialType\Actions\UpdateMaterialTypeAction;
 use Illuminate\Http\Request;
 
 class MaterialTypeController extends Controller

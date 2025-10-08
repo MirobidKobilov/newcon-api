@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\User\Actions\CreateUserAction;
+use App\Domain\User\Actions\DeleteUserAction;
+use App\Domain\User\Actions\GetUsersListAction;
+use App\Domain\User\Actions\UpdateUserAction;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\User\Actions\CreateUserAction;
-use App\User\Actions\DeleteUserAction;
-use App\User\Actions\GetUsersListAction;
-use App\User\Actions\UpdateUserAction;
-use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Permission\Actions\CreatePermissionAction;
-use App\Permission\Actions\DeletePermissionAction;
-use App\Permission\Actions\GetPermissionsListAction;
-use App\Permission\Actions\UpdatePermissionAction;
+use App\Domain\Permission\Actions\CreatePermissionAction;
+use App\Domain\Permission\Actions\DeletePermissionAction;
+use App\Domain\Permission\Actions\GetPermissionsListAction;
+use App\Domain\Permission\Actions\UpdatePermissionAction;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {

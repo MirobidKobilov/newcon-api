@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Company\Actions\CreateCompanyAction;
-use App\Company\Actions\DeleteCompanyAction;
-use App\Company\Actions\GetCompaniesList;
-use App\Company\Actions\GetCompaniesListAction;
-use App\Company\Actions\UpdateCompanyAction;
+use App\Domain\Company\Actions\CreateCompanyAction;
+use App\Domain\Company\Actions\DeleteCompanyAction;
+use App\Domain\Company\Actions\GetCompaniesListAction;
+use App\Domain\Company\Actions\UpdateCompanyAction;
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use Illuminate\Http\Request;

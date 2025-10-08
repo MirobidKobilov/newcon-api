@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Product\Actions\CreateProductAction;
+use App\Domain\Product\Actions\DeleteProductAction;
+use App\Domain\Product\Actions\GetProductListAction;
+use App\Domain\Product\Actions\UpdateProductAction;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Product\Actions\CreateProductAction;
-use App\Product\Actions\DeleteProductAction;
-use App\Product\Actions\GetProductListAction;
-use App\Product\Actions\UpdateProductAction;
-use App\Service\ProductService;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class ProductController extends Controller
 {

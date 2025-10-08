@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Material\Actions\CreateMaterialAction;
+use App\Domain\Material\Actions\DeleteMaterialAction;
+use App\Domain\Material\Actions\GetMaterialListAction;
+use App\Domain\Material\Actions\UpdateMaterialAction;
 use App\Http\Requests\CreateMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
-use App\Material\Actions\CreateMaterialAction;
-use App\Material\Actions\DeleteMaterialAction;
-use App\Material\Actions\GetMaterialListAction;
-use App\Material\Actions\UpdateMaterialAction;
+
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller

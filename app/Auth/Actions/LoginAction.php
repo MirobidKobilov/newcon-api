@@ -2,10 +2,11 @@
 
 namespace App\Auth\Actions;
 
+
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Services\MenuService;
-use App\User\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class LoginAction

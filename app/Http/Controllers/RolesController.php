@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Roles\Actions\CreateRoleAction;
+use App\Domain\Roles\Actions\DeleteRoleAction;
+use App\Domain\Roles\Actions\GetRolesListAction;
+use App\Domain\Roles\Actions\UpdateRoleAction;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
-use App\Roles\Actions\CreateRoleAction;
-use App\Roles\Actions\DeleteRoleAction;
-use App\Roles\Actions\GetRolesListAction;
-use App\Roles\Actions\UpdateRoleAction;
-use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {

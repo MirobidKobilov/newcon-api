@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Product\Models\Product;
+use App\Domain\Product\Models\Product;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;

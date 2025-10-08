@@ -25,7 +25,7 @@ class UserActionListener
     public function handle(UserActionEvent $event)
     {
         Action::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::id() ?? 1,
             'action_type_id' => $event->action_type,
         ]);
     }
