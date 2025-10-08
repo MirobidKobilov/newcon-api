@@ -25,45 +25,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (UnauthorizedException $e, $request) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You do not have the required role or permission.',
-                'data' => null,
-            ], 403);
-        });
-
-        $exceptions->render(function (AuthorizationException $e, $request) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You are not authorized to perform this action.',
-                'data' => null,
-            ], 403);
-        });
-
-        $exceptions->render(function (NotFoundHttpException $e, $request) {
-            return response()->json([
-                'success' => false,
-                'message' => 'The requested resource was not found.',
-                'data' => null,
-            ], 404);
-        });
-
-        $exceptions->render(function (HttpException $e, $request) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage() ?: 'An error occurred.',
-                'data' => null,
-            ], $e->getStatusCode());
-        });
-
-        $exceptions->render(function (Throwable $e, $request) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong. Please try again later.',
-                'data' => null,
-            ], 500);
-        });
-    })
+    ->withExceptions(function (Exceptions $exceptions) {})
+    
     ->create();
