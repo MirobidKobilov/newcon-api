@@ -3,6 +3,7 @@
 namespace App\Domain\Sale\Models;
 
 use App\Domain\Company\Models\Company;
+use App\Domain\Payment\Models\Payment;
 use App\Domain\Product\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,10 +25,19 @@ class Sale extends Model
     {
         return $this->belongsToMany(
             Product::class,
-            'product_sales',   
-            'sale_id',         
+            'product_sales',
+            'sale_id',
             'product_id'
-        )->withPivot('quantity')
-            ->withTimestamps();
+        )->withPivot('quantity');
+    }
+
+    public function payments()
+    {
+        return $this->belongsToMany(
+            Payment::class,
+            'payment_sale',
+            'sale_id',
+            'payment_id'
+        )->withPivot('amount');
     }
 }

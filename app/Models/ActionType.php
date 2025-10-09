@@ -21,4 +21,6 @@ class ActionType extends Model
     public const MATERIAL_CREATED = 11;
     public const MATERIAL_UPDATED = 12;
     public const MATERIAL_DELETED = 13;
+
+    public const PAYMENT_CREATED = 14;
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Domain\Expance\Models\Expance;
 use App\Services\MenuService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -62,6 +63,11 @@ class User extends Authenticatable
     public function action()
     {
         return $this->hasMany(Action::class);
+    }
+
+    public function expances()
+    {
+        return $this->hasMany(Expance::class);
     }
 
 }

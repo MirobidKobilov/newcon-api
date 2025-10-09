@@ -1,8 +1,10 @@
 <?php
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ExpanceController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MaterialTypeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
@@ -71,4 +73,14 @@ Route::middleware('auth:sanctum')->prefix('companies')->group( function(){
 Route::middleware('auth:sanctum')->prefix('sales')->group( function(){
     Route::get('list' , [SaleController::class , 'index']);
     Route::post('create' , [SaleController::class , 'create']);
+});
+
+Route::middleware('auth:sanctum')->prefix('payments')->group( function(){
+    Route::get('list' , [PaymentController::class , 'index']);
+    Route::post('create' , [PaymentController::class , 'create']);
+});
+
+Route::middleware('auth:sanctum')->prefix('expances')->group( function(){
+    Route::get('list' , [ExpanceController::class , 'index']);
+    Route::post('create' , [ExpanceController::class , 'create']);
 });
