@@ -2,24 +2,27 @@
 
 namespace App\Events;
 
-use App\Domain\Product\Models\Product;
+use App\Domain\Material\Models\Material;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ProductActionEvent
+class MaterialActionEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $product;
+    public $material;
     public $action_type;
     /**
      * Create a new event instance.
      */
-    public function __construct(Product $product , string $action_type)
+    public function __construct(Material $material , string $action_type)
     {
-        $this->product = $product;
+        $this->material = $material;
         $this->action_type = $action_type;
     }
 

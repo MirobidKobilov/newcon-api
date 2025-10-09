@@ -5,7 +5,7 @@ namespace App\Observers;
 use App\Domain\Product\Models\Product;
 use App\Events\ProductActionEvent;
 use App\Models\ActionType;
-
+use Illuminate\Support\Facades\Log;
 
 class ProductObserver
 {
