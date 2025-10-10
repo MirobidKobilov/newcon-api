@@ -10,7 +10,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
-use App\Http\Resources\MaterialResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,66 +20,66 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 
 
-Route::prefix('products')->group(function () {
+Route::middleware('auth:sanctum')->prefix('products')->group(function () {
     Route::get('list', [ProductController::class, 'index']);
     Route::post('create', [ProductController::class, 'create']);
     Route::put('update/{id}' , [ProductController::class , 'update']);
     Route::delete('delete/{id}' , [ProductController::class , 'delete']);
 });
 
-Route::prefix('users')->group(function(){
+Route::middleware('auth:sanctum')->prefix('users')->group(function(){
     Route::get('list' , [UserController::class , 'index']);
     Route::post('create' , [UserController::class , 'create']);
     Route::put('update/{id}' , [UserController::class , 'update']);
     Route::delete('delete/{id}' , [UserController::class , 'delete']);
 });
 
-Route::prefix('permissions')->group( function(){
+Route::middleware('auth:sanctum')->prefix('permissions')->group( function(){
     Route::get('list' , [PermissionController::class , 'index']);
     Route::post('create' , [PermissionController::class , 'create']);
     Route::put('update/{id}' , [PermissionController::class , 'update']);
     Route::delete('delete/{id}' , [PermissionController::class , 'delete']);
 });
 
-Route::prefix('roles')->group( function(){
+Route::middleware('auth:sanctum')->prefix('roles')->group( function(){
     Route::get('list' , [RolesController::class , 'index']);
     Route::post('create' , [RolesController::class , 'create']);
     Route::put('update/{id}' , [RolesController::class , 'update']);
     Route::delete('delete/{id}' , [RolesController::class , 'delete']);
 });
 
-Route::prefix('material_types')->group( function(){
+Route::middleware('auth:sanctum')->prefix('material_types')->group( function(){
     Route::get('list' , [MaterialTypeController::class , 'index']);
     Route::post('create' , [MaterialTypeController::class , 'create']);
     Route::put('update/{id}' , [MaterialTypeController::class , 'update']);
     Route::delete('delete/{id}' , [MaterialTypeController::class , 'delete']);
 });
 
-Route::prefix('materials')->group( function(){
+Route::middleware('auth:sanctum')->prefix('materials')->group( function(){
     Route::get('list' , [MaterialController::class , 'index']);
     Route::post('create' , [MaterialController::class , 'create']);
     Route::put('update/{id}' , [MaterialController::class , 'update']);
     Route::delete('delete/{id}' , [MaterialController::class , 'delete']);
 });
 
-Route::prefix('companies')->group( function(){
+Route::middleware('auth:sanctum')->prefix('companies')->group( function(){
     Route::get('list' , [CompanyController::class , 'index']);
     Route::post('create' , [CompanyController::class , 'create']);
     Route::put('update/{id}' , [CompanyController::class , 'update']);
     Route::delete('delete/{id}' , [CompanyController::class , 'delete']);
 });
 
-Route::prefix('sales')->group( function(){
+Route::middleware('auth:sanctum')->prefix('sales')->group( function(){
     Route::get('list' , [SaleController::class , 'index']);
     Route::post('create' , [SaleController::class , 'create']);
 });
 
-Route::prefix('payments')->group( function(){
+Route::middleware('auth:sanctum')->prefix('payments')->group( function(){
     Route::get('list' , [PaymentController::class , 'index']);
     Route::post('create' , [PaymentController::class , 'create']);
 });
 
-Route::prefix('expances')->group( function(){
+Route::middleware('auth:sanctum')->prefix('expances')->group( function(){
     Route::get('list' , [ExpanceController::class , 'index']);
     Route::post('create' , [ExpanceController::class , 'create']);
 });

@@ -37,7 +37,7 @@ class LoginAction
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Login failed',
-                'error' => $e->getMessage(),
+                'error' => $e->getMessage(), 
             ], 500);
         }
     }

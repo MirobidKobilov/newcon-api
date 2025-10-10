@@ -35,7 +35,7 @@ class Sale extends Model
     {
         return $this->belongsToMany(
             Payment::class,
-            'payment_sale',
+            'payment_sales',
             'sale_id',
             'payment_id'
         )->withPivot('amount');
