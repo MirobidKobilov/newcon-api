@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $this->hasMany(Action::class);
     }
 
-    public function expances()
+    public function expance()
     {
         return $this->hasMany(Expance::class);
     }

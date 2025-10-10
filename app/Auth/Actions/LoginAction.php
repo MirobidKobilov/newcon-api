@@ -14,18 +14,31 @@ class LoginAction
 
     public function __invoke(LoginRequest $request)
     {
-        $user = User::where('username', $request->username)->first();
+        try {
+            $user = User::where('username', $request->username)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
+            if (!Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'message' => 'Invalid password',
+                ], 401);
+            }
+
+            $token = $user->createToken('api-token')->plainTextToken;
+
+            $user->token = $token;
+            $user->menu = app(MenuService::class)->getMenu($user);
+
+            return new UserResource($user);
+        } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Invalid username or password',
-            ], 401);
+                'message' => 'Login failed',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        $token = $user->createToken('api-token')->plainTextToken;
-        $user->token = $token;
-        $user->menu = app(MenuService::class)->getMenu($user); 
-
-        return new UserResource($user);
     }
 }
