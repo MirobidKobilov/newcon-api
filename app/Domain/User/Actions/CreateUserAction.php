@@ -20,10 +20,7 @@ class CreateUserAction{
         if(!empty($data['role'])){
             $user->assignRole($data['role']);
         }
-
-        if(!empty($data['permission'])){
-            $user->givePermissionTo($data['permission']);
-        }
+        
         return new UserResource($user);
     }
 }

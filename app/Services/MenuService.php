@@ -8,13 +8,12 @@ class MenuService
 {
     public function getMenu($user = null)
     {
-        $user = $user ??  Auth::user();
+        $user = $user ?? Auth::user();
 
-        if(!$user){
-            return response()->json([
-                'message' => 'User not found'
-            ]);
+        if (!$user) {
+            return response()->json(['message' => 'User not found']);
         }
+
         $config = config('menu');
         $menu = [];
 
@@ -30,7 +29,6 @@ class MenuService
 
                 if (!empty($item['children'])) {
                     $children = [];
-
                     foreach ($item['children'] as $childKey => $childItem) {
                         if ($this->userCanSee($user, $childItem['permissions'] ?? [])) {
                             $children[$childKey] = [
@@ -56,11 +54,11 @@ class MenuService
     private function userCanSee($user, array $permissions): bool
     {
         if (empty($permissions)) {
-            return true; 
+            return true;
         }
 
         foreach ($permissions as $permission) {
-            if ($user->can($permission)) {
+            if ($user->hasPermissionTo($permission)) {
                 return true;
             }
         }
