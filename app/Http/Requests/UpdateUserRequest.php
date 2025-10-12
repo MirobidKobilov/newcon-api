@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
             'phone' => 'nullable|string',
             'password' => 'nullable|string|min:5',
             'role'        => 'nullable|array',
-            'role.*'      => 'integer|exists:roles,name',
+            'role.*'      => 'integer|exists:roles,id',
         ];
     }
 }
