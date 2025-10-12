@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UpdateUserAction
 {
@@ -23,11 +24,8 @@ class UpdateUserAction
         $user->update($data);
 
         if (!empty($data['role'])) {
-            $user->assignRole($data['role']);
-        }
-
-        if (!empty($data['permission'])) {
-            $user->givePermissionTo($data['permission']);
+            $roles = Role::whereIn('id', $data['role'])->pluck('name')->toArray();
+            $user->assignRole($roles);
         }
         return new UserResource($user);
     }

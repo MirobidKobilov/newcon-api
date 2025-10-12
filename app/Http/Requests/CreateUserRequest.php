@@ -26,7 +26,7 @@ class CreateUserRequest extends FormRequest
             'phone' => 'required|string',
             'password' => 'required|string|min:5',
             'role'        => 'nullable|array',
-            'role.*'      => 'string|exists:roles,name'
+            'role.*'      => 'integer|exists:roles,id'
         ];
     }
 }

@@ -4,18 +4,24 @@ namespace App\Domain\Roles\Actions;
 
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\RolesResource;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class UpdateRoleAction{
+class UpdateRoleAction
+{
 
-    public function __invoke(UpdateRoleRequest $request , $id)
+    public function __invoke(UpdateRoleRequest $request, $id)
     {
         $role = Role::findOrFail($id);
 
         $role->update($request->validated());
 
-        if(!empty($request['permission'])){
-            $role->givePermissionTo($request['permission']);
+        if (!empty($request->permission)) {
+            $permissions = Permission::whereIn('id', $request->permission)
+                ->pluck('name')
+                ->toArray();
+
+            $role->givePermissionTo($permissions);
         }
 
         return new RolesResource($role);

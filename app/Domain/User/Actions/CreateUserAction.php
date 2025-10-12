@@ -6,9 +6,10 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
-class CreateUserAction{
-
+class CreateUserAction
+{
     public function __invoke(CreateUserRequest $request)
     {
         $data = $request->validated();
@@ -17,10 +18,11 @@ class CreateUserAction{
 
         $user = User::create($data);
 
-        if(!empty($data['role'])){
-            $user->assignRole($data['role']);
+        if (!empty($data['role'])) {
+            $roles = Role::whereIn('id', $data['role'])->pluck('name')->toArray();
+            $user->assignRole($roles);
         }
-        
+
         return new UserResource($user);
     }
 }

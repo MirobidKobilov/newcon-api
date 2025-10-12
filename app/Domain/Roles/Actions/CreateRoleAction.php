@@ -5,15 +5,23 @@ namespace App\Domain\Roles\Actions;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Resources\RolesResource;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
-class CreateRoleAction{
-
+class CreateRoleAction
+{
     public function __invoke(CreateRoleRequest $request)
     {
-        $role = Role::create($request->validated());
+        $role = Role::create([
+            'name' => $request->name,
+            'guard_name' => 'sanctum'
+        ]);
 
-        if(!empty($request['permission'])){
-            $role->givePermissionTo($request['permission']);
+        if (!empty($request->permission)) {
+            $permissions = Permission::whereIn('id', $request->permission)
+                ->pluck('name')
+                ->toArray();
+
+            $role->givePermissionTo($permissions);
         }
 
         return new RolesResource($role);

@@ -14,6 +14,7 @@ class UpdatePermissionAction{
 
         $validated = $request->validate([
             'name' => 'nullable|string',
+            'guard_name' => 'sanctum',
         ]);
 
         $permission->update($validated);

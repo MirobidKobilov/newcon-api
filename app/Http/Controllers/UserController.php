@@ -46,5 +46,4 @@ class UserController extends Controller
     {
         return ($this->delete_user)($id);
     }
-
 }
