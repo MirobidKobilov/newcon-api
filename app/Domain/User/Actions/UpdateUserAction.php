@@ -25,7 +25,7 @@ class UpdateUserAction
 
         if (!empty($data['role'])) {
             $roles = Role::whereIn('id', $data['role'])->pluck('name')->toArray();
-            $user->assignRole($roles);
+            $user->syncRole($roles);
         }
         return new UserResource($user);
     }
