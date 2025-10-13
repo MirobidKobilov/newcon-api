@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
             'create_payment',
             'list_expance',
             'create_expance',
+            'list_actions',
         ];
 
         foreach ($permissions as $permission) {

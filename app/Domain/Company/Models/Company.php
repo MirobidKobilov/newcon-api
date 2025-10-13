@@ -12,6 +12,7 @@ class Company extends Model
         'name',
         'phone',
         'address',
+        'deposit',
     ];
 
     public function sales()

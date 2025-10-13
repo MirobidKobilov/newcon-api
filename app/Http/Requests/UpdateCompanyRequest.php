@@ -25,6 +25,7 @@ class UpdateCompanyRequest extends FormRequest
             'name' => 'nullable|string',
             'phone' => 'nullable|string',
             'address' => 'nullable|string',
+            'deposit' => 'nullable',
         ];
     }
 }

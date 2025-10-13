@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpanceController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MaterialTypeController;
@@ -13,6 +15,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
@@ -87,4 +90,13 @@ Route::prefix('payments')->group(function () {
 Route::prefix('expances')->group(function () {
     Route::get('list', [ExpanceController::class, 'index']);
     Route::post('create', [ExpanceController::class, 'create']);
+});
+
+Route::prefix('actions')->group( function(){
+    Route::get('list' , [ActionController::class, 'list']);
+});
+
+Route::prefix('dashboard')->group( function (){
+    Route::post('get-sale-by-day' , [DashboardController::class , 'getSaleByDay']);
+    Route::post('get-sale-by-month' , [DashboardController::class , 'getSaleByMonth']);
 });
