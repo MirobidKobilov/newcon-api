@@ -34,6 +34,7 @@ Route::prefix('products')->group(function () {
     Route::put('update/{id}', [ProductController::class, 'update']);
     Route::delete('delete/{id}', [ProductController::class, 'delete']);
     Route::post('search' , [ProductController::class , 'search']);
+    Route::get('export' , [ProductController::class , 'export']);
 });
 
 Route::prefix('users')->group(function () {
@@ -42,6 +43,7 @@ Route::prefix('users')->group(function () {
     Route::put('update/{id}', [UserController::class, 'update']);
     Route::delete('delete/{id}', [UserController::class, 'delete']);
     Route::post('search' , [UserController::class , 'search']);
+    Route::get('export' , [UserController::class , 'export']);
 });
 
 Route::prefix('permissions')->group(function () {
@@ -57,6 +59,7 @@ Route::prefix('roles')->group(function () {
     Route::put('update/{id}', [RolesController::class, 'update']);
     Route::delete('delete/{id}', [RolesController::class, 'delete']);
     Route::post('search' , [RolesController::class , 'search']);
+    Route::get('export' , [RolesController::class , 'export']);
 });
 
 Route::prefix('material_types')->group(function () {
@@ -73,6 +76,7 @@ Route::prefix('materials')->group(function () {
     Route::put('update/{id}', [MaterialController::class, 'update']);
     Route::delete('delete/{id}', [MaterialController::class, 'delete']);
     Route::post('search' , [MaterialController::class , 'search']);
+    Route::post('export' , [MaterialController::class , 'export']);
 });
 
 Route::prefix('companies')->group(function () {

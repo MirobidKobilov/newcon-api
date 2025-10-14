@@ -7,9 +7,11 @@ use App\Domain\User\Actions\DeleteUserAction;
 use App\Domain\User\Actions\GetUsersListAction;
 use App\Domain\User\Actions\SearchUserAction;
 use App\Domain\User\Actions\UpdateUserAction;
+use App\Exports\UserExport;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -53,5 +55,10 @@ class UserController extends Controller
     public function search(Request $request)
     {
         return ($this->search_user)($request);
+    }
+
+    public function export()
+    {
+        return Excel::download( new UserExport , 'users.xlsx');
     }
 }

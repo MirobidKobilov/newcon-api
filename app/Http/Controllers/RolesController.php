@@ -7,9 +7,11 @@ use App\Domain\Roles\Actions\DeleteRoleAction;
 use App\Domain\Roles\Actions\GetRolesListAction;
 use App\Domain\Roles\Actions\SearchRoleAction;
 use App\Domain\Roles\Actions\UpdateRoleAction;
+use App\Exports\RoleExport;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RolesController extends Controller
 {
@@ -52,5 +54,10 @@ class RolesController extends Controller
     public function search(Request $request)
     {
         return ($this->search_role)($request);
+    }
+
+    public function export()
+    {
+        return Excel::download( new RoleExport , 'role.xlsx');
     }
 }

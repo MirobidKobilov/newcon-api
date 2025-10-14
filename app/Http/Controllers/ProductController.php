@@ -7,9 +7,11 @@ use App\Domain\Product\Actions\DeleteProductAction;
 use App\Domain\Product\Actions\GetProductListAction;
 use App\Domain\Product\Actions\SearchProductAction;
 use App\Domain\Product\Actions\UpdateProductAction;
+use App\Exports\ProductExport;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -52,6 +54,11 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         return ($this->search_product)($request);
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductExport , 'products.xlsx');
     }
 
 }

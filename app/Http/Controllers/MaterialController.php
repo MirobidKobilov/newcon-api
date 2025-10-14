@@ -7,10 +7,12 @@ use App\Domain\Material\Actions\DeleteMaterialAction;
 use App\Domain\Material\Actions\GetMaterialListAction;
 use App\Domain\Material\Actions\SearchMaterialAction;
 use App\Domain\Material\Actions\UpdateMaterialAction;
+use App\Exports\MaterialExport;
 use App\Http\Requests\CreateMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
 {
@@ -52,5 +54,10 @@ class MaterialController extends Controller
     public function search(Request $request)
     {
         return ($this->search_material)($request);
+    }
+
+    public function export()
+    {
+        return Excel::download( new MaterialExport , 'material.xlsx');
     }
 }
