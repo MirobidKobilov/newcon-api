@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Domain\Roles\Actions\CreateRoleAction;
 use App\Domain\Roles\Actions\DeleteRoleAction;
 use App\Domain\Roles\Actions\GetRolesListAction;
+use App\Domain\Roles\Actions\SearchRoleAction;
 use App\Domain\Roles\Actions\UpdateRoleAction;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {
@@ -16,13 +18,15 @@ class RolesController extends Controller
     protected $create_role;
     protected $update_role;
     protected $delete_role;
+    protected $search_role;
 
-    public function __construct(GetRolesListAction $list_roles , CreateRoleAction $create_role ,UpdateRoleAction $update_role , DeleteRoleAction $delete_role)
+    public function __construct(GetRolesListAction $list_roles , CreateRoleAction $create_role ,UpdateRoleAction $update_role , DeleteRoleAction $delete_role , SearchRoleAction $search_role )
     {
         $this->list_roles = $list_roles;
         $this->create_role = $create_role;
         $this->update_role = $update_role;
         $this->delete_role = $delete_role;
+        $this->search_role = $search_role;
     }
 
     public function index()
@@ -43,5 +47,10 @@ class RolesController extends Controller
     public function delete($id)
     {
         return ($this->delete_role)($id);
+    }
+
+    public function search(Request $request)
+    {
+        return ($this->search_role)($request);
     }
 }

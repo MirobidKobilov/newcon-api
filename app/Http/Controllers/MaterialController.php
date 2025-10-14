@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Domain\Material\Actions\CreateMaterialAction;
 use App\Domain\Material\Actions\DeleteMaterialAction;
 use App\Domain\Material\Actions\GetMaterialListAction;
+use App\Domain\Material\Actions\SearchMaterialAction;
 use App\Domain\Material\Actions\UpdateMaterialAction;
 use App\Http\Requests\CreateMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
@@ -17,13 +18,15 @@ class MaterialController extends Controller
     protected $create_material;
     protected $update_material;
     protected $delete_material;
+    protected $search_material;
 
-    public function __construct(GetMaterialListAction $material_list , CreateMaterialAction $create_material , UpdateMaterialAction $update_material ,DeleteMaterialAction $delete_material )
+    public function __construct(GetMaterialListAction $material_list , CreateMaterialAction $create_material , UpdateMaterialAction $update_material ,DeleteMaterialAction $delete_material  , SearchMaterialAction $search_material)
     {
         $this->material_list = $material_list;
         $this->create_material = $create_material;
         $this->update_material = $update_material;
         $this->delete_material = $delete_material;
+        $this->search_material = $search_material;
     }
 
     public function index()
@@ -44,5 +47,10 @@ class MaterialController extends Controller
     public function delete($id)
     {
         return ($this->delete_material)($id);
+    }
+
+    public function search(Request $request)
+    {
+        return ($this->search_material)($request);
     }
 }

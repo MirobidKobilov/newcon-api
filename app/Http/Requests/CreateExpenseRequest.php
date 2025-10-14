@@ -24,6 +24,7 @@ class CreateExpenseRequest extends FormRequest
         return [
             'user_id' => 'required|integer',
             'amount' => 'required',
+            'reason' => 'required',
         ];
     }
 }

@@ -33,6 +33,7 @@ Route::prefix('products')->group(function () {
     Route::post('create', [ProductController::class, 'create']);
     Route::put('update/{id}', [ProductController::class, 'update']);
     Route::delete('delete/{id}', [ProductController::class, 'delete']);
+    Route::post('search' , [ProductController::class , 'search']);
 });
 
 Route::prefix('users')->group(function () {
@@ -40,6 +41,7 @@ Route::prefix('users')->group(function () {
     Route::post('create', [UserController::class, 'create']);
     Route::put('update/{id}', [UserController::class, 'update']);
     Route::delete('delete/{id}', [UserController::class, 'delete']);
+    Route::post('search' , [UserController::class , 'search']);
 });
 
 Route::prefix('permissions')->group(function () {
@@ -54,6 +56,7 @@ Route::prefix('roles')->group(function () {
     Route::post('create', [RolesController::class, 'create']);
     Route::put('update/{id}', [RolesController::class, 'update']);
     Route::delete('delete/{id}', [RolesController::class, 'delete']);
+    Route::post('search' , [RolesController::class , 'search']);
 });
 
 Route::prefix('material_types')->group(function () {
@@ -61,6 +64,7 @@ Route::prefix('material_types')->group(function () {
     Route::post('create', [MaterialTypeController::class, 'create']);
     Route::put('update/{id}', [MaterialTypeController::class, 'update']);
     Route::delete('delete/{id}', [MaterialTypeController::class, 'delete']);
+    Route::post('search' , [MaterialTypeController::class , 'search']);
 });
 
 Route::prefix('materials')->group(function () {
@@ -68,6 +72,7 @@ Route::prefix('materials')->group(function () {
     Route::post('create', [MaterialController::class, 'create']);
     Route::put('update/{id}', [MaterialController::class, 'update']);
     Route::delete('delete/{id}', [MaterialController::class, 'delete']);
+    Route::post('search' , [MaterialController::class , 'search']);
 });
 
 Route::prefix('companies')->group(function () {
@@ -75,6 +80,7 @@ Route::prefix('companies')->group(function () {
     Route::post('create', [CompanyController::class, 'create']);
     Route::put('update/{id}', [CompanyController::class, 'update']);
     Route::delete('delete/{id}', [CompanyController::class, 'delete']);
+    Route::post('search' , [CompanyController::class , 'search']);
 });
 
 Route::prefix('sales')->group(function () {
@@ -90,6 +96,7 @@ Route::prefix('payments')->group(function () {
 Route::prefix('expances')->group(function () {
     Route::get('list', [ExpanceController::class, 'index']);
     Route::post('create', [ExpanceController::class, 'create']);
+    Route::post('search' , [ExpanceController::class , 'search']);
 });
 
 Route::prefix('actions')->group( function(){

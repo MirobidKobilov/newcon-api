@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Domain\MaterialType\Actions\CreateMaterialTypeAction;
 use App\Domain\MaterialType\Actions\DeleteMaterialTypeAction;
 use App\Domain\MaterialType\Actions\GetMaterialTypeListAction;
+use App\Domain\MaterialType\Actions\SearchMaterialTypeAction;
 use App\Domain\MaterialType\Actions\UpdateMaterialTypeAction;
 use Illuminate\Http\Request;
 
@@ -15,13 +16,15 @@ class MaterialTypeController extends Controller
     protected $create_material_type;
     protected $update_material_type;
     protected $delete_material_type;
+    protected $search_material_type;
 
-    public function __construct(GetMaterialTypeListAction $material_type_list , CreateMaterialTypeAction $create_material_type , UpdateMaterialTypeAction $update_material_type , DeleteMaterialTypeAction $delete_material_type)
+    public function __construct(GetMaterialTypeListAction $material_type_list , CreateMaterialTypeAction $create_material_type , UpdateMaterialTypeAction $update_material_type , DeleteMaterialTypeAction $delete_material_type , SearchMaterialTypeAction $search_material_type)
     {
         $this->material_type_list = $material_type_list;
         $this->create_material_type = $create_material_type;
         $this->update_material_type = $update_material_type;
         $this->delete_material_type = $delete_material_type;
+        $this->search_material_type = $search_material_type;
         
     }
 
@@ -43,5 +46,10 @@ class MaterialTypeController extends Controller
     public function delete($id)
     {
         return ($this->delete_material_type)($id);
+    }
+
+    public function search(Request $request)
+    {
+        return ($this->search_material_type)($request);
     }
 }
