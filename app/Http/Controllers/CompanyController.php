@@ -9,6 +9,7 @@ use App\Domain\Company\Actions\SearchCompanyAction;
 use App\Domain\Company\Actions\UpdateCompanyAction;
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use App\Services\CompanyService;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -19,14 +20,16 @@ class CompanyController extends Controller
     protected $update_company;
     protected $delete_company;
     protected $search_company;
+    protected $company_service;
 
-    public function __construct(GetCompaniesListAction $company_list , CreateCompanyAction $create_company , UpdateCompanyAction $update_company , DeleteCompanyAction $delete_company , SearchCompanyAction $search_company)
+    public function __construct(GetCompaniesListAction $company_list , CreateCompanyAction $create_company , UpdateCompanyAction $update_company , DeleteCompanyAction $delete_company , SearchCompanyAction $search_company , CompanyService $company_service)
     {
         $this->company_list = $company_list;
         $this->create_company = $create_company;
         $this->update_company = $update_company;
         $this->delete_company = $delete_company;
         $this->search_company = $search_company;
+        $this->company_service = $company_service;
     }
 
     public function index()
@@ -52,5 +55,10 @@ class CompanyController extends Controller
     public function search(Request $request)
     {
         return ($this->search_company)($request);
+    }
+
+    public function show($id)
+    {
+        return $this->company_service->getCompanySales($id);
     }
 }

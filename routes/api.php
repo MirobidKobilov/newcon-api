@@ -85,6 +85,7 @@ Route::prefix('companies')->group(function () {
     Route::put('update/{id}', [CompanyController::class, 'update']);
     Route::delete('delete/{id}', [CompanyController::class, 'delete']);
     Route::post('search' , [CompanyController::class , 'search']);
+    Route::get('show/{id}' , [CompanyController::class , 'show']);
 });
 
 Route::prefix('sales')->group(function () {
