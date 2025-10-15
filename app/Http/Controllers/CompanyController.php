@@ -7,10 +7,12 @@ use App\Domain\Company\Actions\DeleteCompanyAction;
 use App\Domain\Company\Actions\GetCompaniesListAction;
 use App\Domain\Company\Actions\SearchCompanyAction;
 use App\Domain\Company\Actions\UpdateCompanyAction;
+use App\Exports\CompanyExport;
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Services\CompanyService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CompanyController extends Controller
 {
@@ -60,5 +62,10 @@ class CompanyController extends Controller
     public function show($id)
     {
         return $this->company_service->getCompanySales($id);
+    }
+
+    public function export()
+    {
+        return Excel::download( new CompanyExport , 'company.xlsx');
     }
 }

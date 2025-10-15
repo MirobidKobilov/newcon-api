@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Domain\Expance\Actions\CreateExpanceAction;
 use App\Domain\Expance\Actions\GetListExpancesAction;
 use App\Domain\Expance\Actions\SearchExpancesAction;
+use App\Exports\ExpanseExport;
 use App\Http\Requests\CreateExpenseRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExpanceController extends Controller
 {
@@ -35,5 +37,10 @@ class ExpanceController extends Controller
     public function search(Request $request)
     {
         return ($this->search_expanse)($request);
+    }
+
+    public function export()
+    {
+        return Excel::download(new ExpanseExport , 'expanse.xlsx');
     }
 }

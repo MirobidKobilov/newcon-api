@@ -85,12 +85,14 @@ Route::prefix('companies')->group(function () {
     Route::put('update/{id}', [CompanyController::class, 'update']);
     Route::delete('delete/{id}', [CompanyController::class, 'delete']);
     Route::post('search' , [CompanyController::class , 'search']);
+    Route::get('export' , [CompanyController::class , 'export']);
     Route::get('show/{id}' , [CompanyController::class , 'show']);
 });
 
 Route::prefix('sales')->group(function () {
     Route::get('list', [SaleController::class, 'index']);
     Route::post('create', [SaleController::class, 'create']);
+    Route::get('export' , [SaleController::class , 'export']);
 });
 
 Route::prefix('payments')->group(function () {
@@ -102,6 +104,7 @@ Route::prefix('expances')->group(function () {
     Route::get('list', [ExpanceController::class, 'index']);
     Route::post('create', [ExpanceController::class, 'create']);
     Route::post('search' , [ExpanceController::class , 'search']);
+    Route::get('export' , [ExpanceController::class , 'export']);
 });
 
 Route::prefix('actions')->group( function(){

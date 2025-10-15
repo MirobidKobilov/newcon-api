@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Domain\Sale\Actions\CreateSalesAction;
 use App\Domain\Sale\Actions\GetListSalesAction;
+use App\Exports\SalesExport;
 use App\Http\Requests\CreateSaleRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SaleController extends Controller
 {
@@ -27,5 +29,10 @@ class SaleController extends Controller
     public function create(CreateSaleRequest $request)
     {
         return ($this->create_sale)($request);
+    }
+
+    public function export()
+    {
+        return Excel::download(new SalesExport , 'sales.xlsx');
     }
 }
