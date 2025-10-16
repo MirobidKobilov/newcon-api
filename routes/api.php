@@ -15,7 +15,6 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
