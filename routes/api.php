@@ -97,6 +97,7 @@ Route::prefix('sales')->group(function () {
 Route::prefix('payments')->group(function () {
     Route::get('list', [PaymentController::class, 'index']);
     Route::post('create', [PaymentController::class, 'create']);
+    Route::put('update/{id}' , [PaymentController::class , 'update']);
 });
 
 Route::prefix('expances')->group(function () {

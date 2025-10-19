@@ -18,6 +18,7 @@ class ActionsResource extends JsonResource
             'id' => $this->id,
             'action_type_id' => $this->action_type_id,
             'user' => new UserResource($this->user),
+            'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
 }
