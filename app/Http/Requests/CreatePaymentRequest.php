@@ -22,7 +22,6 @@ class CreatePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'opportunity_id' => 'required|integer',
             'name' => 'required|string',
             'payment_type_id' => 'required|integer',
             'sales_stage' => 'required|string',

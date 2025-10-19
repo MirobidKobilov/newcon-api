@@ -12,7 +12,6 @@ class CreatePaymentAction
         $data = $request->validated();
         
         $payment = Payment::create([
-            'opportunity_id' => $data['opportunity_id'],
             'name' => $data['name'],
             'payment_type_id' => $data['payment_type_id'],
             'sales_stage' => $data['sales_stage'],

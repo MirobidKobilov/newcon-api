@@ -10,7 +10,6 @@ class Payment extends Model
 
     protected $fillable =
     [
-        'opportunity_id',
         'name',
         'payment_type_id',
         'sales_stage',
