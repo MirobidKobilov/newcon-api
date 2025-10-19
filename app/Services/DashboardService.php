@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class DashboardService
 {
-
     public function getSaleByDay(Request $request)
     {
         $day = $request->day;
@@ -16,18 +15,26 @@ class DashboardService
         if (empty($day)) {
             return response()->json([
                 'total_summa' => 0,
+                'count' => 0,
                 'data' => []
             ]);
         }
 
-        $sales = Sale::whereDate('created_at', $day)->get();
+        $salesQuery = Sale::whereDate('created_at', $day);
+        $total = $salesQuery->sum('summa');
 
-        $total = $sales->sum('summa');
+        $sales = $salesQuery->paginate(5); 
 
         return response()->json([
             'total_summa' => $total,
-            'count' => $sales->count(),
-            'data' => SaleResource::collection($sales)
+            'count' => $sales->total(),
+            'data' => SaleResource::collection($sales),
+            'pagination' => [
+                'current_page' => $sales->currentPage(),
+                'last_page' => $sales->lastPage(),
+                'per_page' => $sales->perPage(),
+                'total' => $sales->total(),
+            ],
         ]);
     }
 
@@ -38,20 +45,27 @@ class DashboardService
         if (empty($month)) {
             return response()->json([
                 'total_summa' => 0,
+                'count' => 0,
                 'data' => []
             ]);
         }
 
-        $sales = Sale::whereMonth('created_at', $month)
-            ->get();
+        $salesQuery = Sale::whereMonth('created_at', $month);
+        $total = $salesQuery->sum('summa');
 
-        $totalSumma = $sales->sum('summa');
+        $sales = $salesQuery->paginate(5); 
 
         return response()->json([
-            'total_summa' => $totalSumma,
-            'count' => $sales->count(),
+            'total_summa' => $total,
+            'count' => $sales->total(),
             'month' => $month,
-            'data' => SaleResource::collection($sales)
+            'data' => SaleResource::collection($sales),
+            'pagination' => [
+                'current_page' => $sales->currentPage(),
+                'last_page' => $sales->lastPage(),
+                'per_page' => $sales->perPage(),
+                'total' => $sales->total(),
+            ],
         ]);
     }
 }

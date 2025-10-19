@@ -31,9 +31,9 @@ class RolesController extends Controller
         $this->search_role = $search_role;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->list_roles)();
+        return ($this->list_roles)($request);
     }
 
     public function create(CreateRoleRequest $request)

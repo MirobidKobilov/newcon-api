@@ -24,9 +24,9 @@ class ExpanceController extends Controller
         $this->search_expanse = $search_expance;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->expance_list)();
+        return ($this->expance_list)($request);
     }
 
     public function create(CreateExpenseRequest $request)

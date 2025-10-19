@@ -31,9 +31,9 @@ class MaterialController extends Controller
         $this->search_material = $search_material;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->material_list)();
+        return ($this->material_list)($request);
     }
 
     public function create(CreateMaterialRequest $request)

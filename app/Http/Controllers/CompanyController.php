@@ -34,9 +34,9 @@ class CompanyController extends Controller
         $this->company_service = $company_service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->company_list)();
+        return ($this->company_list)($request);
     }
 
     public function create(CreateCompanyRequest $request)

@@ -31,9 +31,9 @@ class ProductController extends Controller
         $this->search_product = $search_product;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->product_list)();
+        return ($this->product_list)($request);
     }
 
     public function create(CreateProductRequest $request)

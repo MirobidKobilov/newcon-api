@@ -21,7 +21,7 @@ class PaymentObserver
      */
     public function updated(Payment $payment): void
     {
-        //
+        event(new PaymentActionEvent($payment , ActionType::PAYMENT_UPDATED));
     }
 
     /**

@@ -32,9 +32,9 @@ class UserController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->user_list)();
+        return ($this->user_list)($request);
     }
 
     public function create(CreateUserRequest $request)

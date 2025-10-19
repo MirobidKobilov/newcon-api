@@ -21,9 +21,9 @@ class SaleController extends Controller
         $this->create_sale = $create_sale;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->sales_list)();
+        return ($this->sales_list)($request);
     }
 
     public function create(CreateSaleRequest $request)
