@@ -12,7 +12,6 @@ class Sale extends Model
     protected $fillable =
     [
         'company_id',
-        'sales_type_id',
         'summa',
     ];
 
@@ -28,7 +27,7 @@ class Sale extends Model
             'product_sales',
             'sale_id',
             'product_id'
-        )->withPivot('quantity');
+        )->withPivot('quantity' , 'sales_type_id');
     }
 
     public function payments()

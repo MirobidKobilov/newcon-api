@@ -21,7 +21,9 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'quantity' => $this->quantity,
             'status' => $this->status,
-            'image' => $this->image ? Storage::url($this->image): null,
+            'price' => $this->price,
+            'sales_type_id' => $this->pivot->sales_type_id ?? null,
+            'image' => $this->image ? Storage::url($this->image) : null,
         ];
     }
 }

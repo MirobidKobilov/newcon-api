@@ -24,6 +24,6 @@ class UpdateProductAction
 
         $product->update($validated);
 
-        return new ProdauctResource($product);
+        return new ProductResource($product);
     }
 }

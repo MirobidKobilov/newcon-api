@@ -17,6 +17,7 @@ class Product extends Model
         'quantity',
         'status',
         'image',
+        'price',
     ];
 
     public function sales()
