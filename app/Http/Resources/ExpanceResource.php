@@ -18,6 +18,7 @@ class ExpanceResource extends JsonResource
             'id' => $this->id,
             'user' => new UserResource($this->user),
             'amount' => $this->amount, 
+            'reason' => $this->reason,
         ];
     }
 }
