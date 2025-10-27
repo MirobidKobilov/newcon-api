@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Action\Models\Action;
 use App\Http\Resources\ActionsResource;
-use App\Models\Action;
+
 use Illuminate\Http\Request;
 
 class ActionController extends Controller

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\Action\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Action extends Model

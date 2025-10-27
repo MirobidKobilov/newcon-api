@@ -2,8 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Domain\Action\Models\Action;
 use App\Events\ProductActionEvent;
-use App\Models\Action;
+
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Domain\Action\Models\Action;
 use App\Domain\Expance\Models\Expance;
 use App\Services\MenuService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
