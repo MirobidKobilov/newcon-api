@@ -11,11 +11,13 @@ class GetPermissionsListAction
     public function __invoke(Request $request)
     {
         $validated = $request->validate([
-            'pagination' => 'nullable|integer',
+            'index' => 'nullable|integer|min:1',
+            'size' => 'nullable|integer|min:1',
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['pagination'] ?? 10;
+        $page = $validated['index'] ?? 1;
+        $size = $validated['size'] ?? 10;
         $search = $validated['search'] ?? null;
 
         $query = Permission::query();
@@ -24,7 +26,7 @@ class GetPermissionsListAction
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $permissions = $query->paginate($page);
+        $permissions = $query->paginate($size, ['*'], 'page', $page);
 
         return PermissionsResource::collection($permissions);
     }

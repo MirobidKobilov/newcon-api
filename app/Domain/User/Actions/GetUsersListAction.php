@@ -11,11 +11,13 @@ class GetUsersListAction
     public function __invoke(Request $request)
     {
         $validated = $request->validate([
-            'pagination' => 'nullable|integer',
+            'index' => 'nullable|integer|min:1',
+            'size' => 'nullable|integer|min:1',
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['pagination'] ?? 10;
+        $page = $validated['index'] ?? 1;
+        $size = $validated['size'] ?? 10;
         $search = strtolower($validated['search'] ?? '');
 
         $query = User::query();
@@ -27,7 +29,7 @@ class GetUsersListAction
             });
         }
 
-        $users = $query->paginate($page);
+        $users = $query->paginate($size, ['*'], 'page', $page);
 
         return UserResource::collection($users);
     }

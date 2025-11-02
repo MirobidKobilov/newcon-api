@@ -11,14 +11,16 @@ class GetListExpancesAction
     public function __invoke(Request $request)
     {
         $validated = $request->validate([
-            'pagination' => 'nullable|integer',
+            'index' => 'nullable|integer|min:1',
+            'size' => 'nullable|integer|min:1',
             'from_date' => 'nullable|date',
             'to_date' => 'nullable|date',
             'username' => 'nullable|string',
             'amount' => 'nullable|numeric',
         ]);
 
-        $page = $validated['pagination'] ?? 10;
+        $page = $validated['index'] ?? 1;
+        $size = $validated['size'] ?? 10;
         $from = $validated['from_date'] ?? null;
         $to = $validated['to_date'] ?? null;
         $username = $validated['username'] ?? null;
@@ -44,7 +46,7 @@ class GetListExpancesAction
             $query->where('amount', $amount);
         }
 
-        $expances = $query->paginate($page);
+        $expances = $query->paginate($size, ['*'], 'page', $page);
 
         return ExpanceResource::collection($expances);
     }
