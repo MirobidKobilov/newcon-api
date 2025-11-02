@@ -23,7 +23,7 @@ class CreateSaleRequest extends FormRequest
     {
         return [
             'company_id' => 'required|exists:companies,id',
-            'sales_type_id' => 'required|integer',
+            // 'sales_type_id' => 'required|integer',
             'summa' => 'required|numeric|min:0',
             'products' => 'required|array|min:1',
             'products.*.product_id' => 'required|exists:products,id',

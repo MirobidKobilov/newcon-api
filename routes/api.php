@@ -32,7 +32,6 @@ Route::prefix('products')->group(function () {
     Route::post('create', [ProductController::class, 'create']);
     Route::put('update/{id}', [ProductController::class, 'update']);
     Route::delete('delete/{id}', [ProductController::class, 'delete']);
-    Route::post('search' , [ProductController::class , 'search']);
     Route::get('export' , [ProductController::class , 'export']);
 });
 
@@ -41,7 +40,6 @@ Route::prefix('users')->group(function () {
     Route::post('create', [UserController::class, 'create']);
     Route::put('update/{id}', [UserController::class, 'update']);
     Route::delete('delete/{id}', [UserController::class, 'delete']);
-    Route::post('search' , [UserController::class , 'search']);
     Route::get('export' , [UserController::class , 'export']);
 });
 
@@ -57,7 +55,6 @@ Route::prefix('roles')->group(function () {
     Route::post('create', [RolesController::class, 'create']);
     Route::put('update/{id}', [RolesController::class, 'update']);
     Route::delete('delete/{id}', [RolesController::class, 'delete']);
-    Route::post('search' , [RolesController::class , 'search']);
     Route::get('export' , [RolesController::class , 'export']);
 });
 
@@ -74,7 +71,6 @@ Route::prefix('materials')->group(function () {
     Route::post('create', [MaterialController::class, 'create']);
     Route::put('update/{id}', [MaterialController::class, 'update']);
     Route::delete('delete/{id}', [MaterialController::class, 'delete']);
-    Route::post('search' , [MaterialController::class , 'search']);
     Route::post('export' , [MaterialController::class , 'export']);
 });
 
@@ -83,7 +79,6 @@ Route::prefix('companies')->group(function () {
     Route::post('create', [CompanyController::class, 'create']);
     Route::put('update/{id}', [CompanyController::class, 'update']);
     Route::delete('delete/{id}', [CompanyController::class, 'delete']);
-    Route::post('search' , [CompanyController::class , 'search']);
     Route::get('export' , [CompanyController::class , 'export']);
     Route::get('show/{id}' , [CompanyController::class , 'show']);
 });

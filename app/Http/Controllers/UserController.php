@@ -52,10 +52,6 @@ class UserController extends Controller
         return ($this->delete_user)($id);
     }
 
-    public function search(Request $request)
-    {
-        return ($this->search_user)($request);
-    }
 
     public function export()
     {

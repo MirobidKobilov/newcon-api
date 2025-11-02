@@ -51,10 +51,6 @@ class RolesController extends Controller
         return ($this->delete_role)($id);
     }
 
-    public function search(Request $request)
-    {
-        return ($this->search_role)($request);
-    }
 
     public function export()
     {

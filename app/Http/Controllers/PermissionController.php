@@ -23,9 +23,9 @@ class PermissionController extends Controller
         $this->delete_permission = $delete_permission;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->permissions_list)();
+        return ($this->permissions_list)($request);
     }
 
     public function create(Request $request)

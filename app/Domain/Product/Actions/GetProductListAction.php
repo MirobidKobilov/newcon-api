@@ -12,11 +12,20 @@ class GetProductListAction
     {
         $validated = $request->validate([
             'pagination' => 'nullable|integer',
+            'search' => 'nullable|string',
         ]);
 
-        $page = $validated['pagination'] ?? 10; 
+        $page = $validated['pagination'] ?? 10;
+        $search = $validated['search'] ?? null;
 
-        $products = Product::paginate($page);
+        $query = Product::query();
+
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        }
+
+        $products = $query->paginate($page);
 
         return ProductResource::collection($products);
     }
