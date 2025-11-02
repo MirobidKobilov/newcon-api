@@ -5,18 +5,19 @@ namespace App\Domain\Product\Actions;
 use App\Domain\Product\Models\Product;
 use App\Http\Resources\ProductResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class GetProductListAction
 {
     public function __invoke(Request $request)
     {
         $validated = $request->validate([
-            'pagination' => 'nullable|integer',
+            'index' => 'nullable|integer|min:1',
+            'size' => 'nullable|integer|min:1',
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['pagination'] ?? 10;
+        $page = $validated['index'] ?? 1;
+        $size = $validated['size'] ?? 10;
         $search = strtolower($validated['search'] ?? '');
 
         $query = Product::query();
@@ -26,7 +27,7 @@ class GetProductListAction
                   ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
         }
 
-        $products = $query->paginate($page);
+        $products = $query->paginate($size, ['*'], 'page', $page);
 
         return ProductResource::collection($products);
     }
