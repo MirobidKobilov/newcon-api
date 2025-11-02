@@ -16,13 +16,13 @@ class GetUsersListAction
         ]);
 
         $page = $validated['pagination'] ?? 10;
-        $search = $validated['search'] ?? null;
+        $search = strtolower($validated['search'] ?? '');
 
         $query = User::query();
 
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('username', 'like', "%{$search}%")
+                $q->whereRaw('LOWER(username) LIKE ?', ["%{$search}%"])
                   ->orWhere('phone', 'like', "%{$search}%");
             });
         }

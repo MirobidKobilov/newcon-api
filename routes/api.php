@@ -71,7 +71,7 @@ Route::prefix('materials')->group(function () {
     Route::post('create', [MaterialController::class, 'create']);
     Route::put('update/{id}', [MaterialController::class, 'update']);
     Route::delete('delete/{id}', [MaterialController::class, 'delete']);
-    Route::post('export' , [MaterialController::class , 'export']);
+    Route::get('export' , [MaterialController::class , 'export']);
 });
 
 Route::prefix('companies')->group(function () {
