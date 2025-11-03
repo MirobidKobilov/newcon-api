@@ -35,10 +35,14 @@ class GetListPaymentsAction
         }
 
         if ($search) {
-            $query->whereHas('sales.company', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('uuid', 'like', "%{$search}%")
+                    ->orWhereHas('sales.company', function ($sub) use ($search) {
+                        $sub->where('name', 'like', "%{$search}%");
+                    });
             });
         }
+
 
         $payments = $query->paginate($size, ['*'], 'page', $page);
 

@@ -13,6 +13,7 @@ class Payment extends Model
         'name',
         'payment_type_id',
         'sales_stage',
+        'uuid',
     ];
 
     public function sales()
