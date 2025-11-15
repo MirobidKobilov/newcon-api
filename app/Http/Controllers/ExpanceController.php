@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Domain\Expance\Actions\CreateExpanceAction;
 use App\Domain\Expance\Actions\GetListExpancesAction;
 use App\Domain\Expance\Actions\SearchExpancesAction;
+use App\Domain\Expance\Services\ExpanceService;
 use App\Exports\ExpanseExport;
 use App\Http\Requests\CreateExpenseRequest;
 use Illuminate\Http\Request;
@@ -16,12 +17,14 @@ class ExpanceController extends Controller
     protected $expance_list;
     protected $create_expance;
     protected $search_expanse;
+    protected $service;
 
-    public function __construct(GetListExpancesAction $expance_list , CreateExpanceAction $create_expance , SearchExpancesAction $search_expance)
+    public function __construct(GetListExpancesAction $expance_list , CreateExpanceAction $create_expance , SearchExpancesAction $search_expance , ExpanceService $expance_service)
     {
         $this->expance_list = $expance_list;
         $this->create_expance = $create_expance;
         $this->search_expanse = $search_expance;
+        $this->service = $expance_service;
     }
 
     public function index(Request $request)
@@ -42,5 +45,10 @@ class ExpanceController extends Controller
     public function export()
     {
         return Excel::download(new ExpanseExport , 'expanse.xlsx');
+    }
+
+    public function calculateExpances(Request $request)
+    {
+        return $this->service->calculateExpances($request);
     }
 }

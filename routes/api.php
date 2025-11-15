@@ -101,6 +101,7 @@ Route::prefix('expances')->group(function () {
     Route::post('create', [ExpanceController::class, 'create']);
     Route::post('search' , [ExpanceController::class , 'search']);
     Route::get('export' , [ExpanceController::class , 'export']);
+    Route::get('calculate-expances' , [ExpanceController::class , 'calculateExpances']);
 });
 
 Route::prefix('actions')->group( function(){
