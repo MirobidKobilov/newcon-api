@@ -68,4 +68,9 @@ class CompanyController extends Controller
     {
         return Excel::download( new CompanyExport , 'company.xlsx');
     }
+
+    public function getCompanyDebt($id)
+    {
+        return $this->company_service->companyDebtOverall($id);
+    }
 }

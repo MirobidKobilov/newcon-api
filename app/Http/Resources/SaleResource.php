@@ -16,7 +16,7 @@ class SaleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'company' => new CompanyResource($this->company),
+            'company_id' => $this->company_id,
             'summa' => $this->summa,
             'products' => ProductResource::collection($this->products),
             'created_at' => $this->created_at->format('Y-m-d'),

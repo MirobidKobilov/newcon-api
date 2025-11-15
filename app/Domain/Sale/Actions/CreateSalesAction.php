@@ -12,6 +12,7 @@ class CreateSalesAction
 {
     public function __invoke(CreateSaleRequest $request)
     {
+        return $request;
         $data = $request->validated();
 
         $summa = 0;
@@ -27,13 +28,13 @@ class CreateSalesAction
             'company_id' => $data['company_id'],
             'summa' => $summa,
         ]);
-
+        
         $company->deposit  -= $summa;
         $company->save();
         foreach ($data['products'] as $product) {
             $sale->products()->attach($product['product_id'], [
                 'quantity' => $product['quantity'],
-                'sales_type_id' => $data['sales_type_id'],
+                // 'sales_type_id' => $data['sales_type_id'],
             ]);
         }
 

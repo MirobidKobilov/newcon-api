@@ -4,9 +4,11 @@
 namespace App\Services;
 
 use App\Domain\Company\Models\Company;
+use App\Http\Resources\CompanyResource;
 use App\Http\Resources\CompanySalesResource;
 
-class CompanyService{
+class CompanyService
+{
 
     public function getCompanySales($id)
     {
@@ -17,8 +19,11 @@ class CompanyService{
 
     public function companyDebtOverall($id)
     {
-        $company = Company::with('sales')->findOrFail($id);
+        $company = Company::with(['sales', 'payments'])
+            ->where('id', $id)
+            ->where('deposit', '<=',  0)
+            ->firstOrFail();
 
-        return $company;
+        return new CompanyResource($company);
     }
 }

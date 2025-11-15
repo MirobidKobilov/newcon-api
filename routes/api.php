@@ -82,6 +82,7 @@ Route::prefix('companies')->group(function () {
     Route::delete('delete/{id}', [CompanyController::class, 'delete']);
     Route::get('export' , [CompanyController::class , 'export']);
     Route::get('show/{id}' , [CompanyController::class , 'show']);
+    Route::get('overall-debt/{id}' , [CompanyController::class , 'getCompanyDebt']);
 });
 
 Route::prefix('sales')->group(function () {

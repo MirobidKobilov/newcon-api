@@ -19,6 +19,7 @@ class CompanySalesResource extends JsonResource
             'name' => $this->name,
             'phone' => $this->phone,
             'address' => $this->address,
+            'deposit' => $this->deposit,
             'sales' => SingleSaleResource::collection($this->sales),
         ];
     }
