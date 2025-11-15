@@ -22,7 +22,7 @@ class Payment extends Model
             Sale::class,
             'payment_sales',
             'payment_id',
-            'sale_id'
+            'company_id'
         )->withPivot('amount');
     }
 }

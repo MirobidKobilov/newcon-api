@@ -29,7 +29,7 @@ class CreatePaymentAction
         ]);
 
         foreach ($data['sales'] as $sale) {
-            $payment->sales()->attach($sale['sale_id'], [
+            $payment->sales()->attach($sale['company'], [
                 'amount' => $sale['amount'],
             ]);
         }

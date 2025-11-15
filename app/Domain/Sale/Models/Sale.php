@@ -30,13 +30,4 @@ class Sale extends Model
         )->withPivot('quantity' , 'sales_type_id');
     }
 
-    public function payments()
-    {
-        return $this->belongsToMany(
-            Payment::class,
-            'payment_sales',
-            'sale_id',
-            'payment_id'
-        )->withPivot('amount');
-    }
 }

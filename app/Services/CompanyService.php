@@ -14,4 +14,11 @@ class CompanyService{
 
         return new CompanySalesResource($company);
     }
+
+    public function companyDebtOverall($id)
+    {
+        $company = Company::with('sales')->findOrFail($id);
+
+        return $company;
+    }
 }
