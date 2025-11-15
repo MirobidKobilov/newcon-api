@@ -3,6 +3,7 @@
 namespace App\Domain\Payment\Actions;
 
 use App\Domain\Payment\Models\Payment;
+use App\Domain\Sale\Models\Sale;
 use App\Http\Requests\CreatePaymentRequest;
 use App\Http\Resources\PaymentResource;
 
@@ -15,6 +16,10 @@ class CreatePaymentAction
             $uuid = random_int(100000, 999999);
         } while (Payment::where('uuid', $uuid)->exists());
 
+        $sale_company = Sale::findOrFail($data['sale_id']);
+        $company = $sale_company->company;
+        $company->deposit += $data['summa'];
+        $company->save();
 
         $payment = Payment::create([
             'name' => $data['name'],

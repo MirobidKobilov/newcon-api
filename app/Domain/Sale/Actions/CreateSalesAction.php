@@ -2,6 +2,7 @@
 
 namespace App\Domain\Sale\Actions;
 
+use App\Domain\Company\Models\Company;
 use App\Domain\Sale\Models\Sale;
 use App\Domain\Product\Models\Product;
 use App\Http\Requests\CreateSaleRequest;
@@ -15,6 +16,8 @@ class CreateSalesAction
 
         $summa = 0;
 
+        $company = Company::findOrFail($data['company_id']);
+
         foreach ($data['products'] as $product) {
             $product = Product::findOrFail($product['product_id']);
             $summa += $product->price * $product['quantity'];
@@ -25,6 +28,8 @@ class CreateSalesAction
             'summa' => $summa,
         ]);
 
+        $company->deposit  -= $summa;
+        $company->save();
         foreach ($data['products'] as $product) {
             $sale->products()->attach($product['product_id'], [
                 'quantity' => $product['quantity'],
