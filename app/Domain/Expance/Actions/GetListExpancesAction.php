@@ -17,6 +17,7 @@ class GetListExpancesAction
             'to_date' => 'nullable|date',
             'username' => 'nullable|string',
             'amount' => 'nullable|numeric',
+            'user_id' => 'nullable|string',
         ]);
 
         $page = $validated['index'] ?? 1;
@@ -25,6 +26,7 @@ class GetListExpancesAction
         $to = $validated['to_date'] ?? null;
         $username = $validated['username'] ?? null;
         $amount = $validated['amount'] ?? null;
+        $user = $validated['user_id'] ?? null;
 
         $query = Expance::with('user');
 
@@ -46,6 +48,9 @@ class GetListExpancesAction
             $query->where('amount', $amount);
         }
 
+        if($user){
+            $query->where('user_id' , $user)->get();
+        }
         $expances = $query->paginate($size, ['*'], 'page', $page);
 
         return ExpanceResource::collection($expances);
