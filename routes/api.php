@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -109,4 +110,11 @@ Route::prefix('actions')->group( function(){
 Route::prefix('dashboard')->group( function (){
     Route::post('get-sale-by-day' , [DashboardController::class , 'getSaleByDay']);
     Route::post('get-sale-by-month' , [DashboardController::class , 'getSaleByMonth']);
+});
+
+Route::prefix('workers')->group(function(){
+    Route::get('list' , [WorkerController::class , 'list']);
+    Route::post('create' , [WorkerController::class , 'create']);
+    Route::put('update/{id}' , [WorkerController::class , 'update']);
+    Route::delete('delete/{id}' , [WorkerController::class , 'delete']);
 });
