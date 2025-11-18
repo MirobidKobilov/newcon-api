@@ -11,41 +11,41 @@ class MenuService
         $user = $user ?? Auth::user();
 
         if (!$user) {
-            return response()->json(['message' => 'User not found']);
+            return [];
         }
 
         $config = config('menu');
+        return $this->filterMenu($config, $user);
+    }
+
+    private function filterMenu(array $items, $user)
+    {
         $menu = [];
 
-        foreach ($config as $key => $item) {
-            if ($this->userCanSee($user, $item['permissions'] ?? [])) {
-                $menu[$key] = [
-                    'title' => $item['title'],
-                ];
+        foreach ($items as $key => $item) {
 
-                if (!empty($item['route'])) {
-                    $menu[$key]['route'] = $item['route'];
-                }
+            if (!$this->userCanSee($user, $item['permissions'] ?? [])) {
+                continue;
+            }
 
-                if (!empty($item['children'])) {
-                    $children = [];
-                    foreach ($item['children'] as $childKey => $childItem) {
-                        if ($this->userCanSee($user, $childItem['permissions'] ?? [])) {
-                            $children[$childKey] = [
-                                'title' => $childItem['title'],
-                            ];
+            $entry = [
+                'title' => $item['title']
+            ];
 
-                            if (!empty($childItem['route'])) {
-                                $children[$childKey]['route'] = $childItem['route'];
-                            }
-                        }
-                    }
+            if (!empty($item['route'])) {
+                $entry['route'] = $item['route'];
+            }
 
-                    if (!empty($children)) {
-                        $menu[$key]['children'] = $children;
-                    }
+            // Recursive child filtering
+            if (!empty($item['children'])) {
+                $children = $this->filterMenu($item['children'], $user);
+
+                if (!empty($children)) {
+                    $entry['children'] = $children;
                 }
             }
+
+            $menu[$key] = $entry;
         }
 
         return $menu;
@@ -57,12 +57,6 @@ class MenuService
             return true;
         }
 
-        foreach ($permissions as $permission) {
-            if ($user->hasPermissionTo($permission)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $user->hasAnyPermission($permissions);
     }
 }

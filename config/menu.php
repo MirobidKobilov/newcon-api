@@ -87,6 +87,8 @@ return [
         'icon' => 'settings',
         'permissions' => ['list_product', 'list_user', 'list_role', 'list_material_type', 'list_material'],
         'children' => [
+
+            // PRODUCTS
             'products' => [
                 'title' => 'Products',
                 'icon' => 'product',
@@ -115,6 +117,7 @@ return [
                 ],
             ],
 
+            // USERS
             'users' => [
                 'title' => 'Users',
                 'icon' => 'users',
@@ -143,6 +146,7 @@ return [
                 ],
             ],
 
+            // ROLES
             'roles' => [
                 'title' => 'Roles',
                 'icon' => 'roles',
@@ -171,6 +175,7 @@ return [
                 ],
             ],
 
+            // MATERIAL TYPES
             'material_types' => [
                 'title' => 'Material Types',
                 'icon' => 'material_type',
@@ -199,6 +204,7 @@ return [
                 ],
             ],
 
+            // MATERIALS
             'materials' => [
                 'title' => 'Materials',
                 'icon' => 'materials',
