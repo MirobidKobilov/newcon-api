@@ -23,6 +23,7 @@ class WorkerResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'salary' => $this->salary,
             'status' => $this->status,
+            'workerSalary' => WorkerSalaryResource::collection($this->workerSalary),
         ];
     }
 }

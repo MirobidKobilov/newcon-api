@@ -15,6 +15,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\WorkerSalaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -119,4 +120,10 @@ Route::prefix('workers')->group(function(){
     Route::post('create' , [WorkerController::class , 'create']);
     Route::put('update/{id}' , [WorkerController::class , 'update']);
     Route::delete('delete/{id}' , [WorkerController::class , 'delete']);
+    Route::get('get/{id}' , [WorkerController::class , 'get']);
+});
+
+Route::prefix('salaries')->group(function(){
+    Route::get('list' , [WorkerSalaryController::class , 'list']);
+    Route::post('create' , [WorkerSalaryController::class , 'create']);
 });
