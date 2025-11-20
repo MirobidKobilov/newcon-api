@@ -13,7 +13,8 @@ class ProductSale extends Model
         'sale_id',
         'product_id',
         'quantity',
-        'sale_type_id',
+        // 'sale_type_id',
+        'price'
     ];
 
 }
