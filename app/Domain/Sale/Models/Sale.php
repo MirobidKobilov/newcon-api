@@ -27,7 +27,7 @@ class Sale extends Model
             'product_sales',
             'sale_id',
             'product_id'
-        )->withPivot('quantity' , 'sales_type_id');
+        )->withPivot('quantity' , 'sales_type_id' , 'price');
     }
 
 }

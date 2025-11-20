@@ -27,7 +27,7 @@ class Product extends Model
             'product_sales',   
             'product_id',      
             'sale_id'          
-        )->withPivot('quantity')
+        )->withPivot('quantity' , 'price')
             ->withTimestamps();
     }
 }
