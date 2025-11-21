@@ -2,6 +2,7 @@
 
 namespace App\Domain\Payment\Models;
 
+use App\Domain\Company\Models\Company;
 use App\Domain\Sale\Models\Sale;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,10 +17,10 @@ class Payment extends Model
         'uuid',
     ];
 
-    public function sales()
+    public function companies()
     {
         return $this->belongsToMany(
-            Sale::class,
+            Company::class,
             'payment_sales',
             'payment_id',
             'company_id'

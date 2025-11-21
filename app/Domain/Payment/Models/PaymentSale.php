@@ -9,8 +9,7 @@ class PaymentSale extends Model
     protected $fillable = 
     [
         'payment_id',
-        'sale_id',
-        'sale_type_id',
+        'company_id',
         'amount',
     ];
 }
