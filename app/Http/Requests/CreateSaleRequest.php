@@ -22,7 +22,7 @@ class CreateSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_id' => 'required|exists:companies,id',
+            'company_id' => 'nullable|exists:companies,id',
             // 'sales_type_id' => 'required|integer',
             'summa' => 'required|numeric|min:0',
             'products' => 'required|array|min:1',
