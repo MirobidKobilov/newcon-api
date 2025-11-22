@@ -6,7 +6,7 @@ use App\Models\User;
 
 class DeleteUserAction{
 
-    public function __invoke($id)
+    public function execute($id)
     {
         $user = User::findOrFail($id);
 

@@ -8,7 +8,6 @@ use App\Http\Requests\LoginRequest;
 class AuthController extends Controller
 {
 
-
     protected $login_action;
 
     public function __construct(LoginAction $login_action)
@@ -18,6 +17,6 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        return ($this->login_action)($request);
+        return $this->login_action->execute($request);
     }
 }

@@ -34,24 +34,23 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->user_list)($request);
+        return $this->user_list->execute($request);
     }
 
     public function create(CreateUserRequest $request)
     {
-        return ($this->create_user)($request);
+        return $this->create_user->execute($request);
     }
 
     public function update(UpdateUserRequest $request , $id)
     {
-        return ($this->update_user)($request , $id);
+        return $this->update_user->execute($request , $id  );
     }
 
     public function delete($id)
     {
-        return ($this->delete_user)($id);
+        return $this->delete_user->execute($id);
     }
-
 
     public function export()
     {

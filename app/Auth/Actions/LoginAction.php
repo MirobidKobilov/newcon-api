@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class LoginAction
 {
 
-    public function __invoke(LoginRequest $request)
+    public function execute(LoginRequest $request)
     {
         try {
             $user = User::where('username', $request->username)->first();

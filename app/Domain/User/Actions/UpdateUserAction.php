@@ -10,23 +10,24 @@ use Spatie\Permission\Models\Role;
 
 class UpdateUserAction
 {
-
-    public function __invoke(UpdateUserRequest $request, $id)
+    public function execute(UpdateUserRequest $request, $id)
     {
         $user = User::findOrFail($id);
 
-        $data = $request->validated();
-
-        if (!empty($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
         }
 
-        $user->update($data);
+        $user->username = $request->username ?? $user->username;
+        $user->phone = $request->phone ?? $user->phone;
 
-        if (!empty($data['role'])) {
-            $roles = Role::whereIn('id', $data['role'])->pluck('name')->toArray();
+        $user->save();  
+
+        if (!empty($request->role)) {
+            $roles = Role::whereIn('id', $request->role)->pluck('name')->toArray();
             $user->syncRoles($roles);
         }
+
         return new UserResource($user);
     }
 }

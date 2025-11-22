@@ -10,18 +10,21 @@ use Spatie\Permission\Models\Role;
 
 class CreateUserAction
 {
-    public function __invoke(CreateUserRequest $request)
+    public function execute(CreateUserRequest $request)
     {
-        $data = $request->validated();
+        $user = new User();
 
-        $data['password'] = Hash::make($data['password']);
+        $user->password = Hash::make($request->password);
 
-        $user = User::create($data);
+        $user->username = $request->username;
+        $user->phone = $request->phone;
 
-        if (!empty($data['role'])) {
-            $roles = Role::whereIn('id', $data['role'])->pluck('name')->toArray();
+        $user->save();
+        if (!empty($request['role'])) {
+            $roles = Role::whereIn('id', $request['role'])->pluck('name')->toArray();
             $user->assignRole($roles);
         }
+
 
         return new UserResource($user);
     }
