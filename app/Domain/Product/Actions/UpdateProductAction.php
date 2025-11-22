@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Domain\Product\Actions;
 
 use App\Domain\Product\Models\Product;
@@ -9,21 +8,25 @@ use Illuminate\Support\Facades\Storage;
 
 class UpdateProductAction
 {
-    public function __invoke(UpdateProductRequest $request, $id)
+    public function execute(UpdateProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
-        $validated = $request->validated();
-
+        
         if ($request->hasFile('image')) {
             if ($product->image && Storage::disk('public')->exists($product->image)) {
                 Storage::disk('public')->delete($product->image);
             }
-            $path = $request->file('image')->store('products', 'public');
-            $validated['image'] = $path;
+            
+            $product->image = $request->file('image')->store('products', 'public');
         }
-
-        $product->update($validated);
-
+        
+        $product->name = $request->name ?? $product->name;
+        $product->description = $request->description ?? $product->description;
+        $product->price = $request->price ?? $product->price;
+        $product->status = $request->status ?? $product->status;
+        
+        $product->save(); 
+        
         return new ProductResource($product);
     }
 }

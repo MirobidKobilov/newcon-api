@@ -9,16 +9,21 @@ use Illuminate\Support\Facades\Storage;
 
 class CreateProductAction
 {
-    public function __invoke(CreateProductRequest $request)
+    public function execute(CreateProductRequest $request)
     {
-        $validate = $request->validated();
+        $product = new Product();
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('products', 'public');
-            $validate['image'] = $path;
+            $product->image = $path;
         }
 
-        $product = Product::create($validate);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->status = 1;
+        $product->save();
 
         return new ProductResource($product);
     }

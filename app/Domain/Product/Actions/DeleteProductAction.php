@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DeleteProductAction
 {
-    public function __invoke($id)
+    public function execute($id)
     {
         $product = Product::findOrFail($id);
 

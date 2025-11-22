@@ -33,22 +33,22 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->product_list)($request);
+        return $this->product_list->execute($request);
     }
 
     public function create(CreateProductRequest $request)
     {
-        return ($this->create_product)($request);
+        return $this->create_product->execute($request);
     }
 
     public function update(UpdateProductRequest $request , $id)
     {
-        return ($this->update_product)($request , $id);
+        return $this->update_product->execute($request , $id);
     }
 
     public function delete($id)
     {
-        return ($this->delete_product)($id);
+        return $this->delete_product->execute($id);
     }
 
     public function search(Request $request)
