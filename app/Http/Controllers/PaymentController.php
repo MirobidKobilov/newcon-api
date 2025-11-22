@@ -24,16 +24,16 @@ class PaymentController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->payment_list)($request);
+        return $this->payment_list->execute($request);
     }
 
     public function create(CreatePaymentRequest $request)
     {
-        return ($this->create_payment)($request);
+        return $this->create_payment->execute($request);
     }
 
     public function update(Request $request , $id)
     {
-        return ($this->update_payment)($request , $id);
+        return $this->update_payment->execute($request , $id);
     }
 }

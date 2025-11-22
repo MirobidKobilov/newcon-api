@@ -6,7 +6,7 @@ use App\Domain\Company\Models\Company;
 
 class DeleteCompanyAction{
 
-    public function __invoke($id)
+    public function execute($id)
     {
         $company = Company::findOrFail($id);
 

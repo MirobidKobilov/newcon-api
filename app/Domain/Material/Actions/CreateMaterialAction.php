@@ -8,16 +8,17 @@ use App\Http\Requests\CreateMaterialRequest;
 use App\Http\Resources\MaterialResource;
 
 
-class CreateMaterialAction{
+class CreateMaterialAction
+{
 
-    public function __invoke(CreateMaterialRequest $request)
+    public function execute(CreateMaterialRequest $request)
     {
-        if(!MaterialType::where('id' , $request->material_type_id)->exists()){
-            return response()->json([
-                'message' => 'Material type is not exist'
-            ] , 422);
-        }
-        $material = Material::create($request->validated());
+        $material = new Material();
+        $material->name = $request->name;
+        $material->size = $request->size;
+        $material->quantity = $request->quantity;
+        $material->material_type_id = $request->material_type_id; 
+        $material->save();
 
         return new MaterialResource($material);
     }

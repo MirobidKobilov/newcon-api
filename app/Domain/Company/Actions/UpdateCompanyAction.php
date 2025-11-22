@@ -8,13 +8,15 @@ use App\Http\Resources\CompanyResource;
 
 class UpdateCompanyAction{
 
-    public function __invoke(UpdateCompanyRequest $request , $id)
+    public function execute(UpdateCompanyRequest $request , $id)
     {
-        $data = $request->validated();
-
         $company = Company::findOrFail($id);
 
-        $company->update($data);
+        $company->name = $request->name ?? $company->name;
+        $company->phone = $request->phone ?? $company->phone;
+        $company->address = $request->address ?? $company->address;
+
+        $company->save();
 
         return new CompanyResource($company);
     }

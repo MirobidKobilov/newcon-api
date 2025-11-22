@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 class UpdateRoleAction
 {
 
-    public function __invoke(UpdateRoleRequest $request, $id)
+    public function execute(UpdateRoleRequest $request, $id)
     {
         $role = Role::findOrFail($id);
 

@@ -9,20 +9,16 @@ use App\Http\Resources\MaterialResource;
 
 class UpdateMaterialAction
 {
-
-    public function __invoke(UpdateMaterialRequest $request, $id)
+    public function execute(UpdateMaterialRequest $request, $id)
     {
         $material = Material::findOrFail($id);
 
-        $data = $request->validated();
+        $material->name = $request->name ?? $material->name;
+        $material->size = $request->size ?? $material->size;
+        $material->quantity = $request->quantity ?? $material->quantity;
+        $material->material_type_id = $request->material_type_id ?? $material->material_type_id;
 
-        if (!MaterialType::where('id', $request->material_type_id)->exists()) {
-            return response()->json([
-                'message' => 'Material type is not exist'
-            ], 422);
-        }
-
-        $material->update($data);
+        $material->save();
 
         return new MaterialResource($material);
     }

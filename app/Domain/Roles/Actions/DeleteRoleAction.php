@@ -6,7 +6,7 @@ use Spatie\Permission\Models\Role;
 
 class DeleteRoleAction{
 
-    public function __invoke($id)
+    public function execute($id)
     {
         $role = Role::findOrFail($id);
 

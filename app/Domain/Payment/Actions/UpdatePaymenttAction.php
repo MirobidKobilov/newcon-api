@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class UpdatePaymenttAction
 {
-    public function __invoke(Request $request, $id)
+    public function execute(Request $request, $id)
     {
         $validated = $request->validate([
             'sales_stage' => 'nullable|string'

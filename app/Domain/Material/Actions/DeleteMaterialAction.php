@@ -6,7 +6,7 @@ use App\Domain\Material\Models\Material;
 
 class DeleteMaterialAction{
 
-    public function __invoke($id)
+    public function execute($id)
     {
         $material = Material::findOrFail($id);
 

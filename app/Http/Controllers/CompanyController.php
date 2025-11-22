@@ -36,22 +36,22 @@ class CompanyController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->company_list)($request);
+        return $this->company_list->execute($request);
     }
 
     public function create(CreateCompanyRequest $request)
     {
-        return ($this->create_company)($request);
+        return $this->create_company->execute($request);
     }
 
     public function update(UpdateCompanyRequest $request , $id)
     {
-        return ($this->update_company)($request , $id);
+        return $this->update_company->execute($request , $id);
     }
 
     public function delete($id)
     {
-        return ($this->delete_company)($id);
+        return $this->delete_company->execute($id);
     }
 
     public function search(Request $request)

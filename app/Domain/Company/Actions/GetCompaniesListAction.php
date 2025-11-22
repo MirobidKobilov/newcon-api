@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class GetCompaniesListAction
 {
-    public function __invoke(Request $request)
+    public function execute(Request $request)
     {
         $validated = $request->validate([
             'index' => 'nullable|integer|min:1',

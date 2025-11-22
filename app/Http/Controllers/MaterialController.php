@@ -33,22 +33,22 @@ class MaterialController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->material_list)($request);
+        return $this->material_list->execute($request);
     }
 
     public function create(CreateMaterialRequest $request)
     {
-        return ($this->create_material)($request);
+        return $this->create_material->execute($request);
     }
 
     public function update(UpdateMaterialRequest $request , $id)
     {
-        return ($this->update_material)($request, $id);
+        return $this->update_material->execute($request , $id);
     }
 
     public function delete($id)
     {
-        return ($this->delete_material)($id);
+        return $this->delete_material->execute($id);
     }
 
     public function search(Request $request)

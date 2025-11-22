@@ -9,9 +9,15 @@ use App\Http\Resources\CompanyResource;
 class CreateCompanyAction{
 
 
-    public function __invoke(CreateCompanyRequest $request)
+    public function execute(CreateCompanyRequest $request)
     {
-        $company = Company::create($request->validated());
+        $company = new Company();
+
+        $company->name = $request->name;
+        $company->phone = $request->phone;
+        $company->address = $request->address;
+        $company->deposit = $request->deposit ?? 0;
+        $company->save();
 
         return new CompanyResource($company);
     }

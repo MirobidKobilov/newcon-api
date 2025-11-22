@@ -33,22 +33,22 @@ class RolesController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->list_roles)($request);
+        return $this->list_roles->execute($request);
     }
 
     public function create(CreateRoleRequest $request)
     {
-        return ($this->create_role)($request);
+        return $this->create_role->execute($request);
     }
 
     public function update(UpdateRoleRequest $request , $id)
     {
-        return ($this->update_role)($request , $id);
+        return $this->update_role->execute($request , $id);
     }
 
     public function delete($id)
     {
-        return ($this->delete_role)($id);
+        return $this->delete_role->execute($id);
     }
 
 

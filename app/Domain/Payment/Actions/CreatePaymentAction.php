@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreatePaymentAction
 {
-    public function __invoke(CreatePaymentRequest $request)
+    public function execute(CreatePaymentRequest $request)
     {
         $data = $request->validated();
         
@@ -20,7 +20,7 @@ class CreatePaymentAction
             $payment = Payment::create([
                 'name' => $data['name'],
                 'payment_type_id' => $data['payment_type_id'],
-                'sales_stage' => $data['sales_stage'],
+                'sales_stage' => 'payed',
                 'uuid' => $uuid,
             ]);
             

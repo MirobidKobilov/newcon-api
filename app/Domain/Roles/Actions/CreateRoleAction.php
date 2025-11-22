@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 
 class CreateRoleAction
 {
-    public function __invoke(CreateRoleRequest $request)
+    public function execute(CreateRoleRequest $request)
     {
         $role = Role::create([
             'name' => $request->name,
