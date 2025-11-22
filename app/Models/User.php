@@ -6,6 +6,8 @@ namespace App\Models;
 
 use App\Domain\Action\Models\Action;
 use App\Domain\Expance\Models\Expance;
+use App\Domain\Payment\Models\Payment;
+use App\Domain\Sale\Models\Sale;
 use App\Services\MenuService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -70,6 +72,16 @@ class User extends Authenticatable
     public function expance()
     {
         return $this->hasMany(Expance::class);
+    }
+
+    public function sale()
+    {
+        return $this->hasMany(Sale::class , 'added_user_id');
+    }
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class , 'added_user_id');
     }
 
 }

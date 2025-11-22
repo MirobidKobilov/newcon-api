@@ -21,7 +21,7 @@ class CreateProductAction
         $product->name = $request->name;
         $product->description = $request->description;
         $product->quantity = $request->quantity;
-        $product->price = $request->price;
+
         $product->status = 1;
         $product->save();
 

@@ -232,6 +232,83 @@ return [
                     ],
                 ],
             ],
+
+            'workers' => [
+                'title' => 'Workers',
+                'icon' => 'workers',
+                'permissions' => ['list_worker'],
+                'children' => [
+                    'list' => [
+                        'title' => 'List Workers',
+                        'route' => 'workers/list',
+                        'permissions' => ['list_worker'],
+                    ],
+                    'create' => [
+                        'title' => 'Create Worker',
+                        'route' => 'workers/create',
+                        'permissions' => ['create_worker'],
+                    ],
+                    'update' => [
+                        'title' => 'Edit Worker',
+                        'route' => 'workers/update',
+                        'permissions' => ['update_worker'],
+                    ],
+                    'delete' => [
+                        'title' => 'Delete Worker',
+                        'route' => 'workers/delete',
+                        'permissions' => ['delete_worker'],
+                    ],
+                ],
+            ],
+
+            'salaries' => [
+                'title' => 'Salaries',
+                'icon' => 'salaries',
+                'permissions' => ['list_salary'],
+                'children' => [
+                    'list' => [
+                        'title' => 'List Salaries',
+                        'route' => 'salaries/list',
+                        'permissions' => ['list_salary'],
+                    ],
+                    'create' => [
+                        'title' => 'Create Salary',
+                        'route' => 'salaries/create',
+                        'permissions' => ['create_salary'],
+                    ],
+                ],
+            ],
+
+            'dashboard' => [
+                'title' => 'Dashboard',
+                'icon' => 'dashboard',
+                'permissions' => ['sale_by_day', 'sale_by_month'],
+                'children' => [
+                    'sale_by_day' => [
+                        'title' => 'Sale by Day',
+                        'route' => 'dashboard/get-sale-by-day',
+                        'permissions' => ['sale_by_day'],
+                    ],
+                    'sale_by_month' => [
+                        'title' => 'Sale by Month',
+                        'route' => 'dashboard/get-sale-by-month',
+                        'permissions' => ['sale_by_month'],
+                    ],
+                ],
+            ],
+
+            'actions' => [
+                'title' => 'Actions',
+                'icon' => 'actions',
+                'permissions' => ['list_actions'],
+                'children' => [
+                    'list' => [
+                        'title' => 'List Actions',
+                        'route' => 'actions/list',
+                        'permissions' => ['list_actions'],
+                    ],
+                ],
+            ],
         ],
     ],
 ];

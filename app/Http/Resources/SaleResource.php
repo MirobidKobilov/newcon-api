@@ -19,6 +19,7 @@ class SaleResource extends JsonResource
             'company_id' => $this->company_id,
             'summa' => $this->summa,
             'products' => ProductResource::collection($this->products),
+            'user' => $this->user,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

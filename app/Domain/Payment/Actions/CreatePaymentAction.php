@@ -4,6 +4,7 @@ namespace App\Domain\Payment\Actions;
 use App\Domain\Payment\Models\Payment;
 use App\Http\Requests\CreatePaymentRequest;
 use App\Http\Resources\PaymentResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CreatePaymentAction
@@ -22,6 +23,7 @@ class CreatePaymentAction
                 'payment_type_id' => $data['payment_type_id'],
                 'sales_stage' => 'payed',
                 'uuid' => $uuid,
+                'added_user_id' => Auth::user()->id,
             ]);
             
             $companyData = [];

@@ -22,7 +22,6 @@ class UpdateProductAction
         
         $product->name = $request->name ?? $product->name;
         $product->description = $request->description ?? $product->description;
-        $product->price = $request->price ?? $product->price;
         $product->status = $request->status ?? $product->status;
         
         $product->save(); 

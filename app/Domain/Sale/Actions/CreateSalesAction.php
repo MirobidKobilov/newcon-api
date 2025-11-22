@@ -7,6 +7,7 @@ use App\Domain\Sale\Models\Sale;
 use App\Domain\Product\Models\Product;
 use App\Http\Requests\CreateSaleRequest;
 use App\Http\Resources\SaleResource;
+use Illuminate\Support\Facades\Auth;
 
 class CreateSalesAction
 {
@@ -21,6 +22,7 @@ class CreateSalesAction
         $sale = Sale::create([
             'company_id' => $data['company_id'],
             'summa' => $summa,
+            'added_user_id' => Auth::user()->id ?? null,
         ]);
 
         $company->deposit -= $summa;
