@@ -1,5 +1,23 @@
 <?php
 return [
+
+    'dashboard' => [
+        'title' => 'Dashboard',
+        'icon' => 'dashboard',
+        'permissions' => ['sale_by_day', 'sale_by_month'],
+        'children' => [
+            'sale_by_day' => [
+                'title' => 'Sale by Day',
+                'route' => 'dashboard/get-sale-by-day',
+                'permissions' => ['sale_by_day'],
+            ],
+            'sale_by_month' => [
+                'title' => 'Sale by Month',
+                'route' => 'dashboard/get-sale-by-month',
+                'permissions' => ['sale_by_month'],
+            ],
+        ],
+    ],
     'sales' => [
         'title' => 'Sales',
         'icon' => 'sales',
@@ -279,23 +297,6 @@ return [
                 ],
             ],
 
-            'dashboard' => [
-                'title' => 'Dashboard',
-                'icon' => 'dashboard',
-                'permissions' => ['sale_by_day', 'sale_by_month'],
-                'children' => [
-                    'sale_by_day' => [
-                        'title' => 'Sale by Day',
-                        'route' => 'dashboard/get-sale-by-day',
-                        'permissions' => ['sale_by_day'],
-                    ],
-                    'sale_by_month' => [
-                        'title' => 'Sale by Month',
-                        'route' => 'dashboard/get-sale-by-month',
-                        'permissions' => ['sale_by_month'],
-                    ],
-                ],
-            ],
 
             'actions' => [
                 'title' => 'Actions',
