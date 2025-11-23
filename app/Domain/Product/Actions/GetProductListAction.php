@@ -16,18 +16,22 @@ class GetProductListAction
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
         $search = strtolower($validated['search'] ?? '');
 
         $query = Product::query();
 
         if ($search) {
             $query->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
-                  ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
+                ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
         }
 
-        $products = $query->paginate($size, ['*'], 'page', $page);
+        if (isset($validated['index']) || isset($validated['size'])) {
+            $page = $validated['index'] ?? 1;
+            $size = $validated['size'] ?? 10;
+            $products = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $products = $query->get();
+        }
 
         return ProductResource::collection($products);
     }

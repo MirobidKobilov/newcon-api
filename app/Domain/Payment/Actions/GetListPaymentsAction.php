@@ -18,11 +18,9 @@ class GetListPaymentsAction
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
         $from = $validated['from_date'] ?? null;
         $to = $validated['to_date'] ?? null;
-        $search = $validated['search'] ?? null;
+        $search = strtolower($validated['search'] ?? '');
 
         $query = Payment::with(['companies']);
 
@@ -36,15 +34,20 @@ class GetListPaymentsAction
 
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('uuid', 'like', "%{$search}%")
+                $q->whereRaw('LOWER(uuid) LIKE ?', ["%{$search}%"])
                     ->orWhereHas('companies', function ($sub) use ($search) {
-                        $sub->where('name', 'like', "%{$search}%");
+                        $sub->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"]);
                     });
             });
         }
 
-
-        $payments = $query->paginate($size, ['*'], 'page', $page);
+        if (isset($validated['index']) || isset($validated['size'])) {
+            $page = $validated['index'] ?? 1;
+            $size = $validated['size'] ?? 10;
+            $payments = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $payments = $query->get();
+        }
 
         return PaymentResource::collection($payments);
     }

@@ -18,11 +18,9 @@ class GetListSalesAction
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
         $from = $validated['from_date'] ?? null;
         $to = $validated['to_date'] ?? null;
-        $search = $validated['search'] ?? null;
+        $search = strtolower($validated['search'] ?? '');
 
         $query = Sale::with(['company', 'products']);
 
@@ -36,11 +34,17 @@ class GetListSalesAction
 
         if ($search) {
             $query->whereHas('company', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
+                $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"]);
             });
         }
 
-        $sales = $query->paginate($size, ['*'], 'page', $page);
+        if (isset($validated['index']) || isset($validated['size'])) {
+            $page = $validated['index'] ?? 1;
+            $size = $validated['size'] ?? 10;
+            $sales = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $sales = $query->get();
+        }
 
         return SaleResource::collection($sales);
     }

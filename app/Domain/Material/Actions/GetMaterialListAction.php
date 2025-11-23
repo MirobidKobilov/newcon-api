@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Domain\Material\Actions;
-
 use App\Domain\Material\Models\Material;
 use App\Http\Resources\MaterialResource;
 use Illuminate\Http\Request;
@@ -16,17 +14,21 @@ class GetMaterialListAction
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
-        $search = $validated['search'] ?? null;
+        $search = strtolower($validated['search'] ?? '');
 
         $query = Material::with('material_type');
 
         if ($search) {
-            $query->where('name', 'like', "%{$search}%");
+            $query->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"]);
         }
 
-        $materials = $query->paginate($size, ['*'], 'page', $page);
+        if (isset($validated['index']) || isset($validated['size'])) {
+            $page = $validated['index'] ?? 1;
+            $size = $validated['size'] ?? 10;
+            $materials = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $materials = $query->get();
+        }
 
         return MaterialResource::collection($materials);
     }

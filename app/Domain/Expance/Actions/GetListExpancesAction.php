@@ -20,11 +20,9 @@ class GetListExpancesAction
             'user_id' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
         $from = $validated['from_date'] ?? null;
         $to = $validated['to_date'] ?? null;
-        $username = $validated['username'] ?? null;
+        $username = strtolower($validated['username'] ?? '');
         $amount = $validated['amount'] ?? null;
         $user = $validated['user_id'] ?? null;
 
@@ -40,7 +38,7 @@ class GetListExpancesAction
 
         if ($username) {
             $query->whereHas('user', function ($q) use ($username) {
-                $q->where('username', 'like', "%{$username}%");
+                $q->whereRaw('LOWER(username) LIKE ?', ["%{$username}%"]);
             });
         }
 
@@ -48,10 +46,17 @@ class GetListExpancesAction
             $query->where('amount', $amount);
         }
 
-        if($user){
-            $query->where('user_id' , $user)->get();
+        if ($user) {
+            $query->where('user_id', $user);
         }
-        $expances = $query->paginate($size, ['*'], 'page', $page);
+
+        if (isset($validated['index']) || isset($validated['size'])) {
+            $page = $validated['index'] ?? 1;
+            $size = $validated['size'] ?? 10;
+            $expances = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $expances = $query->get();
+        }
 
         return ExpanceResource::collection($expances);
     }

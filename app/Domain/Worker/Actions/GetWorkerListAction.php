@@ -8,32 +8,34 @@ use Illuminate\Http\Request;
 
 class GetWorkerListAction
 {
-
     public function __invoke(Request $request)
     {
-
         $data = $request->validate([
-            'index' => 'nullable|min:1',
-            'size' => 'nullable|min:1',
+            'index' => 'nullable|integer|min:1',
+            'size' => 'nullable|integer|min:1',
             'search' => 'nullable|string',
         ]);
 
-        $page = $data['index'] ?? 1;
-        $size = $data['size'] ?? 10;
-        $search = $data['search'] ?? null;
+        $search = strtolower($data['search'] ?? '');
 
         $query = Worker::query();
 
-        if($search){
+        if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('full_name' , 'like' , "%{$search}%")
-                    ->orWhere('phone' , 'like' , "%{$search}%")
-                    ->orWhere('address' , 'like' , "%{$search}%")
-                    ->orWhere('position' , 'like' , "%{$search}%");
+                $q->whereRaw('LOWER(full_name) LIKE ?', ["%{$search}%"])
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhereRaw('LOWER(address) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(position) LIKE ?', ["%{$search}%"]);
             });
         }
 
-        $workers = $query->paginate($size , ['*'] , 'page' , $page);
+        if (isset($data['index']) || isset($data['size'])) {
+            $page = $data['index'] ?? 1;
+            $size = $data['size'] ?? 10;
+            $workers = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $workers = $query->get();
+        }
 
         return WorkerResource::collection($workers);
     }

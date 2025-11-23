@@ -16,20 +16,24 @@ class GetCompaniesListAction
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
-        $search = $validated['search'] ?? null;
+        $search = strtolower($validated['search'] ?? '');
 
         $query = Company::query();
 
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
-        $companies = $query->paginate($size, ['*'], 'page', $page);
+        if (isset($validated['index']) || isset($validated['size'])) {
+            $page = $validated['index'] ?? 1;
+            $size = $validated['size'] ?? 10;
+            $companies = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $companies = $query->get();
+        }
 
         return CompanyResource::collection($companies);
     }

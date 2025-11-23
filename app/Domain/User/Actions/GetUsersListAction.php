@@ -16,8 +16,6 @@ class GetUsersListAction
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
         $search = strtolower($validated['search'] ?? '');
 
         $query = User::query();
@@ -25,11 +23,17 @@ class GetUsersListAction
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->whereRaw('LOWER(username) LIKE ?', ["%{$search}%"])
-                  ->orWhere('phone', 'like', "%{$search}%");
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
-        $users = $query->paginate($size, ['*'], 'page', $page);
+        if (isset($validated['index']) || isset($validated['size'])) {
+            $page = $validated['index'] ?? 1;
+            $size = $validated['size'] ?? 10;
+            $users = $query->paginate($size, ['*'], 'page', $page);
+        } else {
+            $users = $query->get();
+        }
 
         return UserResource::collection($users);
     }

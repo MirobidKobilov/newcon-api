@@ -28,9 +28,9 @@ class MaterialTypeController extends Controller
         
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ($this->material_type_list)();
+        return $this->material_type_list->execute($request);
     }
 
     public function create(Request $request)
