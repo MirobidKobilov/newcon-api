@@ -22,7 +22,7 @@ class CreateSalesAction
         $sale = Sale::create([
             'company_id' => $data['company_id'],
             'summa' => $summa,
-            'added_user_id' => Auth::user()->id ?? null,
+            'added_user_id' => Auth::id(),
         ]);
 
         $company->deposit -= $summa;
@@ -32,10 +32,12 @@ class CreateSalesAction
             $sale->products()->attach($product['product_id'], [
                 'quantity' => $product['quantity'],
                 'price' => $product['price']
-                
+
             ]);
         }
 
-        return new SaleResource($sale);
+        return new SaleResource(
+            $sale->load(['user', 'products'])
+        );
     }
 }

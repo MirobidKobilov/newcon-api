@@ -22,7 +22,7 @@ class GetListPaymentsAction
         $to = $validated['to_date'] ?? null;
         $search = strtolower($validated['search'] ?? '');
 
-        $query = Payment::with(['companies']);
+        $query = Payment::with(['companies' , 'user']);
 
         if ($from && $to) {
             $query->whereBetween('created_at', [$from, $to]);

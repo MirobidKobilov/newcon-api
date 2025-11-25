@@ -22,7 +22,7 @@ class GetListSalesAction
         $to = $validated['to_date'] ?? null;
         $search = strtolower($validated['search'] ?? '');
 
-        $query = Sale::with(['company', 'products']);
+        $query = Sale::with(['company', 'products' , 'user']);
 
         if ($from && $to) {
             $query->whereBetween('created_at', [$from, $to]);
