@@ -68,6 +68,8 @@ class DatabaseSeeder extends Seeder
             'create_worker',
             'update_worker',
             'delete_worker',
+            'list_salary',
+            'create_salary'
         ];
 
 
