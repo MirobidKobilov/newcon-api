@@ -72,6 +72,25 @@ return [
         ],
     ],
 
+    'salaries' => [
+        'title' => 'Salaries',
+        'icon' => 'salaries',
+        'permissions' => ['list_salary'],
+        'children' => [
+            'list' => [
+                'title' => 'List Salaries',
+                'route' => 'salaries/list',
+                'permissions' => ['list_salary'],
+            ],
+            'create' => [
+                'title' => 'Create Salary',
+                'route' => 'salaries/create',
+                'permissions' => ['create_salary'],
+            ],
+        ],
+    ],
+
+
     'companies' => [
         'title' => 'Companies',
         'icon' => 'companies',
@@ -275,24 +294,6 @@ return [
                         'title' => 'Delete Worker',
                         'route' => 'workers/delete',
                         'permissions' => ['delete_worker'],
-                    ],
-                ],
-            ],
-
-            'salaries' => [
-                'title' => 'Salaries',
-                'icon' => 'salaries',
-                'permissions' => ['list_salary'],
-                'children' => [
-                    'list' => [
-                        'title' => 'List Salaries',
-                        'route' => 'salaries/list',
-                        'permissions' => ['list_salary'],
-                    ],
-                    'create' => [
-                        'title' => 'Create Salary',
-                        'route' => 'salaries/create',
-                        'permissions' => ['create_salary'],
                     ],
                 ],
             ],
