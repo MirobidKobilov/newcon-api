@@ -100,6 +100,24 @@ return [
         ],
     ],
 
+    'salaries' => [
+        'title' => 'Salaries',
+        'icon' => 'salaries',
+        'permissions' => ['list_salary'],
+        'children' => [
+            'list' => [
+                'title' => 'List Salaries',
+                'route' => 'salaries/list',
+                'permissions' => ['list_salary'],
+            ],
+            'create' => [
+                'title' => 'Create Salary',
+                'route' => 'salaries/create',
+                'permissions' => ['create_salary'],
+            ],
+        ],
+    ],
+
     'settings' => [
         'title' => 'Settings',
         'icon' => 'settings',
@@ -278,25 +296,6 @@ return [
                     ],
                 ],
             ],
-
-            'salaries' => [
-                'title' => 'Salaries',
-                'icon' => 'salaries',
-                'permissions' => ['list_salary'],
-                'children' => [
-                    'list' => [
-                        'title' => 'List Salaries',
-                        'route' => 'salaries/list',
-                        'permissions' => ['list_salary'],
-                    ],
-                    'create' => [
-                        'title' => 'Create Salary',
-                        'route' => 'salaries/create',
-                        'permissions' => ['create_salary'],
-                    ],
-                ],
-            ],
-
 
             'actions' => [
                 'title' => 'Actions',
