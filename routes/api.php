@@ -98,9 +98,6 @@ Route::prefix('companies')->group(function () {
     Route::get('overall-debt/{id}', [CompanyController::class, 'getCompanyDebt']);
 });
 
-
-
-
 Route::prefix('expances')->group(function () {
     Route::get('list', [ExpanceController::class, 'index']);
     Route::post('create', [ExpanceController::class, 'create']);

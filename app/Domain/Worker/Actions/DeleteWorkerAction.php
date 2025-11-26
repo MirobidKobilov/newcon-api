@@ -6,7 +6,7 @@ use App\Domain\Worker\Models\Worker;
 
 class DeleteWorkerAction{
 
-    public function __invoke($id)
+    public function execute($id)
     {
         $worker = Worker::findOrFail($id);
 

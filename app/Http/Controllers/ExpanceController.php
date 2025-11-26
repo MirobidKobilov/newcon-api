@@ -29,12 +29,12 @@ class ExpanceController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->expance_list)($request);
+        return $this->expance_list->execute($request);
     }
 
     public function create(CreateExpenseRequest $request)
     {
-        return ($this->create_expance)($request);
+        return $this->create_expance->execute($request);
     }
 
     public function search(Request $request)

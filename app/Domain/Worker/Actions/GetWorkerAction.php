@@ -7,7 +7,7 @@ use App\Http\Resources\WorkerResource;
 
 class GetWorkerAction{
 
-    public function __invoke($id)
+    public function execute($id)
     {
         $worker = Worker::with('workerSalary')->findOrFail($id);
 

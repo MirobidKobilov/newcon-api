@@ -6,7 +6,7 @@ use App\Domain\WorkerSalary\Models\WorkerSalary;
 
 class GetWorkerSalaryListAction{
 
-    public function __invoke()
+    public function execute()
     {
         $worker_salaries  = WorkerSalary::with('worker')->get();
 

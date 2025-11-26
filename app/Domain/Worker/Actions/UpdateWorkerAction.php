@@ -8,7 +8,7 @@ use App\Http\Resources\WorkerResource;
 
 class UpdateWorkerAction{
 
-    public function __invoke(UpdateWorkerRequest $request , $id)
+    public function execute(UpdateWorkerRequest $request , $id)
     {
         $data = $request->validated();
 

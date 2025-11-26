@@ -30,27 +30,26 @@ class WorkerController extends Controller
 
     public function list(Request $request)
     {
-        return ($this->workers_list)($request);
+        return $this->workers_list->execute($request);
     }
-
 
     public function create(CreateWorkerRequest $request)
     {
-        return ($this->create_worker)($request);
+        return $this->create_worker->execute($request);
     }
 
     public function update(UpdateWorkerRequest $request , $id)
     {
-        return ($this->update_worker)($request , $id);
+        return $this->update_worker->execute($request , $id);
     }
 
     public function delete($id)
     {
-        return ($this->delete_worker)($id);
+        return $this->delete_worker->execute($id);
     }
 
     public function get($id)
     {
-        return ($this->get_worker)($id);
+        return $this->get_worker->execute($id);
     }
 }

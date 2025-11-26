@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CreateWorkerSalaryAction{
 
-    public function __invoke(Request $request)
+    public function execute(Request $request)
     {
         $data = $request->validate([
             'worker_id' => 'required|integer',

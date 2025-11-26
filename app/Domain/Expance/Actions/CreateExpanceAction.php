@@ -8,7 +8,7 @@ use App\Http\Resources\ExpanceResource;
 
 class CreateExpanceAction{
 
-    public function __invoke(CreateExpenseRequest $request)
+    public function execute(CreateExpenseRequest $request)
     {
         $expanse = Expance::create($request->validated());
         return new ExpanceResource($expanse);

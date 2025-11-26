@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class GetWorkerListAction
 {
-    public function __invoke(Request $request)
+    public function execute(Request $request)
     {
         $data = $request->validate([
             'index' => 'nullable|integer|min:1',

@@ -19,11 +19,11 @@ class WorkerSalaryController extends Controller
 
     public function list()
     {
-        return ($this->salaries)();
+        return $this->salaries->execute();
     }
 
     public function create(Request $request)
     {
-        return ($this->create_salary)($request);
+        return $this->create_salary->execute($request);
     }
 }
