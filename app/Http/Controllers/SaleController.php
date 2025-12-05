@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Domain\Sale\Actions\CreateSalesAction;
 use App\Domain\Sale\Actions\GetListSalesAction;
+use App\Domain\Sale\Actions\UpdateSaleAction;
 use App\Exports\SalesExport;
 use App\Http\Requests\CreateSaleRequest;
 use Illuminate\Http\Request;
@@ -14,11 +15,13 @@ class SaleController extends Controller
     
     protected $sales_list;
     protected $create_sale;
+    protected $update_sale;
 
-    public function __construct(GetListSalesAction $sales_list , CreateSalesAction $create_sale)
+    public function __construct(GetListSalesAction $sales_list , CreateSalesAction $create_sale , UpdateSaleAction $update_sale)
     {
         $this->sales_list = $sales_list;
         $this->create_sale = $create_sale;
+        $this->update_sale = $update_sale;
     }
 
     public function index(Request $request)
@@ -29,6 +32,11 @@ class SaleController extends Controller
     public function create(CreateSaleRequest $request)
     {
         return ($this->create_sale)($request);
+    }
+
+    public function update(Request $request , $id)
+    {
+        return $this->update_sale->execute($request , $id);
     }
 
     public function export()

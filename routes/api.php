@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('sales')->group(function () {
         Route::get('list', [SaleController::class, 'index']);
         Route::post('create', [SaleController::class, 'create']);
+        Route::put('update/{id}' , [SaleController::class , 'update']);
         Route::get('export', [SaleController::class, 'export']);
     });
 

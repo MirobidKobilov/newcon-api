@@ -15,6 +15,7 @@ class Sale extends Model
         'company_id',
         'summa',
         'added_user_id',
+        'status',
     ];
 
     public function company()
