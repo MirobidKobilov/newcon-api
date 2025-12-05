@@ -16,8 +16,8 @@ class GetPermissionsListAction
             'search' => 'nullable|string',
         ]);
 
-        $page = $validated['index'] ?? 1;
-        $size = $validated['size'] ?? 10;
+        $page = $validated['index'] ?? null;
+        $size = $validated['size'] ?? null;
         $search = $validated['search'] ?? null;
 
         $query = Permission::query();
@@ -26,7 +26,18 @@ class GetPermissionsListAction
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $permissions = $query->paginate($size, ['*'], 'page', $page);
+        if (!$page || !$size) {
+            $permissions = $query->get();
+            return PermissionsResource::collection($permissions);
+        }
+
+        // Pagination bo‘lsa
+        $permissions = $query->paginate(
+            $size,
+            ['*'],
+            'page',
+            $page
+        );
 
         return PermissionsResource::collection($permissions);
     }
