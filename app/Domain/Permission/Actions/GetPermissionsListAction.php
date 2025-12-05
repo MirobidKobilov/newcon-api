@@ -31,7 +31,6 @@ class GetPermissionsListAction
             return PermissionsResource::collection($permissions);
         }
 
-        // Pagination bo‘lsa
         $permissions = $query->paginate(
             $size,
             ['*'],

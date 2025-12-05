@@ -12,6 +12,7 @@ class Expance extends Model
         'user_id',
         'amount',
         'reason',
+        'type',
     ];
 
     public function user()

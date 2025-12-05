@@ -25,6 +25,7 @@ class CreateExpenseRequest extends FormRequest
             'user_id' => 'required|integer',
             'amount' => 'required',
             'reason' => 'nullable',
+            'type' => 'nullable|string'
         ];
     }
 }
