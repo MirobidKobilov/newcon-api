@@ -15,6 +15,7 @@ class UpdateCompanyAction{
         $company->name = $request->name ?? $company->name;
         $company->phone = $request->phone ?? $company->phone;
         $company->address = $request->address ?? $company->address;
+        $company->deposit = $request->deposit ?? $company->deposit;
 
         $company->save();
 

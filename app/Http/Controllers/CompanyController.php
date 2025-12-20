@@ -73,4 +73,9 @@ class CompanyController extends Controller
     {
         return $this->company_service->companyDebtOverall($id);
     }
+
+    public function getInDebtedCompanies()
+    {
+        return $this->company_service->getInDebtedCompanies();
+    }
 }

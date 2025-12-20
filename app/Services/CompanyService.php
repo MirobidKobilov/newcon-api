@@ -26,4 +26,11 @@ class CompanyService
 
         return new CompanyResource($company);
     }
+
+    public function getInDebtedCompanies()
+    {
+        $companies = Company::where('debt', '>', 0)->orWhere('deposit', '<', 0)->get();
+
+        return CompanyResource::collection($companies);
+    }
 }

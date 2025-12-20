@@ -97,6 +97,7 @@ Route::prefix('companies')->group(function () {
     Route::get('export', [CompanyController::class, 'export']);
     Route::get('show/{id}', [CompanyController::class, 'show']);
     Route::get('overall-debt/{id}', [CompanyController::class, 'getCompanyDebt']);
+    Route::get('indebted-companies', [CompanyController::class, 'getInDebtedCompanies']);
 });
 
 Route::prefix('expances')->group(function () {
