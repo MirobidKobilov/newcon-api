@@ -26,7 +26,7 @@ class CreatePaymentRequest extends FormRequest
             'payment_type_id' => 'required|integer',
             'sales_stage' => 'nullable|string',
             'amount' => 'nullable|numeric|min:0',
-            'sale_id' => 'required|integer|exists:sales,id',
+            'sale_id' => 'nullable|integer|exists:sales,id',
             'sales' => 'nullable|array',
             'sales.*.company_id' => 'nullable|integer',
             'sales.*.amount' => 'nullable|numeric|min:0',
