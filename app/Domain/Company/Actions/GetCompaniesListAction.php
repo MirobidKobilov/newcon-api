@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Domain\Company\Actions;
 
 use App\Domain\Company\Models\Company;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GetCompaniesListAction
 {
@@ -17,13 +17,21 @@ class GetCompaniesListAction
         ]);
 
         $search = strtolower($validated['search'] ?? '');
-
+        
         $query = Company::query();
-
+        
+        // payment_sales pivot jadvalidagi amount'larni sum qilish
+        $query->addSelect([
+            '*',
+            'total_payments' => DB::table('payment_sales')
+                ->whereColumn('payment_sales.company_id', 'companies.id')
+                ->selectRaw('COALESCE(SUM(amount), 0)')
+        ]);
+        
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
-                    ->orWhere('phone', 'like', "%{$search}%");
+                  ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 

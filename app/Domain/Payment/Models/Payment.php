@@ -16,8 +16,15 @@ class Payment extends Model
         'payment_type_id',
         'sales_stage',
         'uuid',
+        'amount',
+        'sale_id',
         'added_user_id'
     ];
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class , 'sale_id');
+    }
 
     public function companies()
     {

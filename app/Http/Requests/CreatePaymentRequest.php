@@ -25,9 +25,11 @@ class CreatePaymentRequest extends FormRequest
             'name' => 'required|string',
             'payment_type_id' => 'required|integer',
             'sales_stage' => 'nullable|string',
-            'sales' => 'required|array',
-            'sales.*.company_id' => 'required|integer',
-            'sales.*.amount' => 'required|numeric|min:0',
+            'amount' => 'nullable|numeric|min:0',
+            'sale_id' => 'required|integer|exists:sales,id',
+            'sales' => 'nullable|array',
+            'sales.*.company_id' => 'nullable|integer',
+            'sales.*.amount' => 'nullable|numeric|min:0',
         ];
     }
 }

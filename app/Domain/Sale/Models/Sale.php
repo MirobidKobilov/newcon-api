@@ -38,4 +38,9 @@ class Sale extends Model
         )->withPivot('quantity' , 'sales_type_id' , 'price');
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class , 'sale_id');
+    }
+
 }

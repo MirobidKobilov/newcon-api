@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
@@ -7,11 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanySalesResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
@@ -20,6 +14,7 @@ class CompanySalesResource extends JsonResource
             'phone' => $this->phone,
             'address' => $this->address,
             'deposit' => $this->deposit,
+            'total_payments' => $this->total_payments ?? 0,
             'sales' => SingleSaleResource::collection($this->sales),
         ];
     }

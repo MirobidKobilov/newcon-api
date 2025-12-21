@@ -27,6 +27,8 @@ class CreatePaymentAction
                 'sales_stage' => 'payed',
                 'uuid' => $uuid,
                 'added_user_id' => Auth::id(),
+                'amount' => $data['amount'],
+                'sale_id' => $data['sale_id'],
             ]);
 
             $companyPivotData = [];
