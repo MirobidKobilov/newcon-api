@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Domain\Company\Actions;
 
 use App\Domain\Company\Models\Company;
+use App\Domain\Payment\Models\Payment;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,21 +19,22 @@ class GetCompaniesListAction
         ]);
 
         $search = strtolower($validated['search'] ?? '');
-        
+
         $query = Company::query();
-        
-        // payment_sales pivot jadvalidagi amount'larni sum qilish
+
+
         $query->addSelect([
             '*',
-            'total_payments' => DB::table('payment_sales')
-                ->whereColumn('payment_sales.company_id', 'companies.id')
-                ->selectRaw('COALESCE(SUM(amount), 0)')
+            'total_payments' => Payment::query()
+                ->join('sales', 'payments.sale_id', '=', 'sales.id')
+                ->whereColumn('sales.company_id', 'companies.id')
+                ->selectRaw('COALESCE(SUM(payments.amount), 0)')
         ]);
-        
+
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
-                  ->orWhere('phone', 'like', "%{$search}%");
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
