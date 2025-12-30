@@ -43,7 +43,7 @@ class GetListSalesAction
             $size = $validated['size'] ?? 10;
             $sales = $query->paginate($size, ['*'], 'page', $page);
         } else {
-            $sales = $query->get();
+            $sales = $query->orderBy('created_at', 'desc')->get();
         }
 
         return SaleResource::collection($sales);
