@@ -33,17 +33,28 @@ class CreatePaymentAction
 
             $companyPivotData = [];
 
-            foreach ($data['sales'] as $item) {
+            if (isset($data['sales']) && is_array($data['sales'])) {
+                foreach ($data['sales'] as $item) {
 
-                $company = Company::lockForUpdate()->findOrFail($item['company_id']);
+                    if (!isset($item['company_id'], $item['amount'])) {
+                        continue;
+                    }
 
-                $company->payment += $item['amount'];
-                $company->save();
+                    $company = Company::lockForUpdate()->findOrFail($item['company_id']);
 
-                $companyPivotData[$item['company_id']] = [
-                    'amount' => $item['amount']
-                ];
+                    $company->payment += $item['amount'];
+                    $company->save();
+
+                    $companyPivotData[$item['company_id']] = [
+                        'amount' => $item['amount']
+                    ];
+                }
+
+                if (!empty($companyPivotData)) {
+                    $payment->companies()->attach($companyPivotData);
+                }
             }
+
 
             $payment->companies()->attach($companyPivotData);
 
