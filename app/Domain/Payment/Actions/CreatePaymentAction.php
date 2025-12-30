@@ -28,7 +28,7 @@ class CreatePaymentAction
                 'uuid' => $uuid,
                 'added_user_id' => Auth::id(),
                 'amount' => $data['amount'],
-                'sale_id' => $data['sale_id'],
+                'sale_id' => $data['sale_id'] ?? null,
             ]);
 
             $companyPivotData = [];
