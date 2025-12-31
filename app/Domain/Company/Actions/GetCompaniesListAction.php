@@ -43,7 +43,7 @@ class GetCompaniesListAction
             $size = $validated['size'] ?? 10;
             $companies = $query->paginate($size, ['*'], 'page', $page);
         } else {
-            $companies = $query->latest()->get();
+            $companies = $query->orderBy('updated_at', 'desc')->get();
         }
 
         return CompanyResource::collection($companies);
