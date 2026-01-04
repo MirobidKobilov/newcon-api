@@ -25,7 +25,7 @@ class GetCompaniesListAction
 
         $query->addSelect([
             '*',
-            'total_payments' => Payment::query()
+            'total_paid_amount' => Payment::query()
                 ->join('sales', 'payments.sale_id', '=', 'sales.id')
                 ->whereColumn('sales.company_id', 'companies.id')
                 ->selectRaw('COALESCE(SUM(payments.amount), 0)')
@@ -43,7 +43,7 @@ class GetCompaniesListAction
             $size = $validated['size'] ?? 10;
             $companies = $query->paginate($size, ['*'], 'page', $page);
         } else {
-            $companies = $query->get();
+            $companies = $query->orderBy('updated_at', 'desc')->get();
         }
 
         return CompanyResource::collection($companies);
