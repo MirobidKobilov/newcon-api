@@ -43,6 +43,8 @@ class CreatePaymentAction
                     $company = Company::lockForUpdate()->findOrFail($item['company_id']);
 
                     $company->payment += $item['amount'];
+                    $company->debt -= $item['amount'];
+                    $company->deposit += $item['amount'];
                     $company->save();
 
                     $companyPivotData[$item['company_id']] = [
