@@ -16,7 +16,6 @@ class CreatePaymentAction
         $data = $request->validated();
 
         return DB::transaction(function () use ($data) {
-
             do {
                 $uuid = random_int(100000, 999999);
             } while (Payment::where('uuid', $uuid)->exists());
@@ -35,13 +34,11 @@ class CreatePaymentAction
 
             if (isset($data['sales']) && is_array($data['sales'])) {
                 foreach ($data['sales'] as $item) {
-
                     if (!isset($item['company_id'], $item['amount'])) {
                         continue;
                     }
 
                     $company = Company::lockForUpdate()->findOrFail($item['company_id']);
-
                     $company->payment += $item['amount'];
                     $company->debt -= $item['amount'];
                     $company->deposit += $item['amount'];
@@ -51,16 +48,14 @@ class CreatePaymentAction
                         'amount' => $item['amount']
                     ];
                 }
-
-                if (!empty($companyPivotData)) {
-                    $payment->companies()->attach($companyPivotData);
-                }
             }
 
+            // ✅ FAQAT BIR MARTA attach qilish
+            if (!empty($companyPivotData)) {
+                $payment->companies()->attach($companyPivotData);
+            }
 
-            $payment->companies()->attach($companyPivotData);
-
-            return new PaymentResource($payment);
+            return new PaymentResource($payment->load('companies', 'user'));
         });
     }
 }
