@@ -21,7 +21,7 @@ class CompanyResource extends JsonResource
             'address' => $this->address,
             'debt' => $this->debt,
             'deposit' => $this->payment,
-            'total_payments' => $this->total_paid_amount,
+            'paid_amount' => $this->paid_amount,
             'sales' => SaleResource::collection($this->sales),
             'payments' => PaymentResource::collection($this->payments),
         ];
