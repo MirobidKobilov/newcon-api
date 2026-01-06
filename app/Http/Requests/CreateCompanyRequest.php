@@ -26,6 +26,7 @@ class CreateCompanyRequest extends FormRequest
             'phone' => 'required|string',
             'address' => 'required|string',
             'deposit' => 'nullable',
+            'company_id' => 'required|integer|exists:companies,id',
         ];
     }
 }
