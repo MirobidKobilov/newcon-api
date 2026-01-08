@@ -4,6 +4,7 @@ namespace App\Domain\Company\Actions;
 use App\Domain\Company\Models\Company;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GetCompaniesListAction
 {
@@ -18,13 +19,24 @@ class GetCompaniesListAction
         $search = isset($validated['search']) ? strtolower(trim($validated['search'])) : '';
 
         $query = Company::query()
-            ->withSum('payments as paid_amount', 'amount');
+            ->withSum(['payments as paid_amount' => function ($query) {
+                $query->whereNotNull('sale_id');
+            }], 'amount')
+            ->withSum(['payments as debt' => function ($query) {
+                $query->whereNull('sale_id');
+            }], 'amount')
+            ->addSelect([
+                'companies.*',
+                DB::raw('(
+                    COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) - 
+                    COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0)
+                ) as deposit')
+            ]);
 
-            
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
-                  ->orWhere('phone', 'like', "%{$search}%");
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
