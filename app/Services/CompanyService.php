@@ -38,17 +38,27 @@ class CompanyService
 
     public function companyDebtOverall($id)
     {
-        $company = Company::with(['sales', 'payments'])
+        $company = Company::with([
+            'sales',
+            'payments' => function ($q) {
+                $q->where('amount', '<=', 0);
+            }
+        ])
             ->where('id', $id)
-            ->where('deposit', '<=',  0)
             ->firstOrFail();
 
         return new CompanyResource($company);
     }
 
+
+
     public function getInDebtedCompanies()
     {
-        $companies = Company::where('debt', '>', 0)->orWhere('deposit', '<', 0)->get();
+        $companies = Company::whereHas('payments', function ($query) {
+            $query->where('amount', '>', 0);
+        })
+            ->with('payments')
+            ->get();
 
         return CompanyResource::collection($companies);
     }

@@ -28,6 +28,7 @@ class CreatePaymentAction
                 'added_user_id' => Auth::id(),
                 'amount' => $data['amount'],
                 'sale_id' => $data['sale_id'] ?? null,
+                'company_id' => $data['company_id'] ?? null,
             ]);
 
             $companyPivotData = [];
@@ -47,10 +48,6 @@ class CreatePaymentAction
                 }
             }
 
-            // ✅ FAQAT BIR MARTA attach qilish
-            if (!empty($companyPivotData)) {
-                $payment->companies()->attach($companyPivotData);
-            }
 
             return new PaymentResource($payment->load('companies', 'user'));
         });

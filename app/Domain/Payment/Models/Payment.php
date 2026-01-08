@@ -18,7 +18,8 @@ class Payment extends Model
         'uuid',
         'amount',
         'sale_id',
-        'added_user_id'
+        'added_user_id',
+        'company_id',
     ];
 
     public function sale()
@@ -28,12 +29,7 @@ class Payment extends Model
 
     public function companies()
     {
-        return $this->belongsToMany(
-            Company::class,
-            'payment_sales',
-            'payment_id',
-            'company_id'
-        )->withPivot('amount');
+        return $this->belongsTo(Company::class , 'company_id');
     }
 
     public function user()
