@@ -24,8 +24,6 @@ class CreateSalesAction
             'added_user_id' => Auth::id(),
         ]);
 
-        $company->deposit -= $summa;
-        $company->debt += $summa;
         $company->save();
 
         foreach ($data['products'] as $product) {
