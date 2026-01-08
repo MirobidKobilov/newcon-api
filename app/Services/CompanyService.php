@@ -40,16 +40,27 @@ class CompanyService
     public function companyDebtOverall($id)
     {
         $company = Company::query()
-            ->select([
-                'companies.*',
-                DB::raw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) as paid_amount'),
-                DB::raw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0) as debt'),
-                DB::raw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) - COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0) as deposit')
-            ])
             ->with(['sales', 'payments'])
-            ->where('companies.id', $id)
-            ->whereRaw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) - COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0) <= 0')
+            // paid_amount: sale_id mavjud bo'lgan to'lovlar
+            ->withSum(['payments as paid_amount' => function ($query) {
+                $query->whereNotNull('sale_id');
+            }], 'amount')
+            // debt: sale_id null bo'lgan to'lovlar
+            ->withSum(['payments as debt' => function ($query) {
+                $query->whereNull('sale_id');
+            }], 'amount')
+            ->where('id', $id)
             ->firstOrFail();
+
+        // Deposit <= 0 bo'lgan kompaniyalarni qaytarish
+        $paidAmount = (float) ($company->paid_amount ?? 0);
+        $debt = (float) ($company->debt ?? 0);
+        $deposit = $paidAmount - $debt;
+
+        // Agar deposit musbat bo'lsa (qarz yo'q), 404 qaytarish
+        if ($deposit > 0) {
+            return response()->json(['message' => 'Company has no debt'], 200);
+        }
 
         return new CompanyResource($company);
     }
