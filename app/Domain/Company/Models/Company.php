@@ -22,11 +22,6 @@ class Company extends Model
 
     public function payments()
     {
-        return $this->belongsToMany(
-            Payment::class,
-            'payment_sales',
-            'company_id',
-            'payment_id'
-        )->withPivot('amount');
+        return $this->hasMany(Payment::class, 'company_id');
     }
 }
