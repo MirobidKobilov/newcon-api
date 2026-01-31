@@ -24,14 +24,7 @@ class GetCompaniesListAction
             }], 'amount')
             ->withSum(['payments as debt' => function ($query) {
                 $query->whereNull('sale_id');
-            }], 'amount')
-            ->addSelect([
-                'companies.*',
-                DB::raw('(
-                    COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) - 
-                    COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0)
-                ) as deposit')
-            ]);
+            }], 'amount');
 
         $query->withSum('sales as sold_amount', 'summa');
         if (!empty($search)) {
