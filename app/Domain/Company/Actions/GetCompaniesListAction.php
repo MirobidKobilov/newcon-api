@@ -20,7 +20,7 @@ class GetCompaniesListAction
 
         $query = Company::query()
             ->withSum('payments as paid_amount', 'amount')
-            ->withSum('payments as due_amount', 'summa');
+            ->withSum('sales as sold_amount', 'summa');
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
