@@ -8,6 +8,7 @@ use App\Http\Requests\CreatePaymentRequest;
 use App\Http\Resources\PaymentResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CreatePaymentAction
 {
@@ -15,6 +16,7 @@ class CreatePaymentAction
     {
         $data = $request->validated();
 
+        Log::info('Creating payment with data: ', $data);
         return DB::transaction(function () use ($data) {
             do {
                 $uuid = random_int(100000, 999999);
@@ -28,6 +30,7 @@ class CreatePaymentAction
                 'added_user_id' => Auth::id(),
                 'amount' => $data['amount'],
                 'sale_id' => $data['sale_id'] ?? null,
+                'company_id' => $data['company_id'] ?? null,
             ]);
 
             $companyPivotData = [];
@@ -39,9 +42,6 @@ class CreatePaymentAction
                     }
 
                     $company = Company::lockForUpdate()->findOrFail($item['company_id']);
-                    $company->payment += $item['amount'];
-                    $company->debt -= $item['amount'];
-                    $company->deposit += $item['amount'];
                     $company->save();
 
                     $companyPivotData[$item['company_id']] = [
@@ -50,10 +50,6 @@ class CreatePaymentAction
                 }
             }
 
-            // ✅ FAQAT BIR MARTA attach qilish
-            if (!empty($companyPivotData)) {
-                $payment->companies()->attach($companyPivotData);
-            }
 
             return new PaymentResource($payment->load('companies', 'user'));
         });

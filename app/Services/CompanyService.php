@@ -36,19 +36,48 @@ class CompanyService
         return new CompanySalesResource($company);
     }
 
+
     public function companyDebtOverall($id)
     {
-        $company = Company::with(['sales', 'payments'])
+        $company = Company::query()
+            ->with(['sales', 'payments'])
+            ->withSum(['payments as paid_amount' => function ($query) {
+                $query->whereNotNull('sale_id');
+            }], 'amount')
+            ->withSum(['payments as debt' => function ($query) {
+                $query->whereNull('sale_id');
+            }], 'amount')
             ->where('id', $id)
-            ->where('deposit', '<=',  0)
             ->firstOrFail();
+
+        $paidAmount = (float) ($company->paid_amount ?? 0);
+        $debt = (float) ($company->debt ?? 0);
+        $deposit = $paidAmount - $debt;
+
+        if ($deposit > 0) {
+            return response()->json([
+                'data' => []
+            ]);
+        }
 
         return new CompanyResource($company);
     }
 
     public function getInDebtedCompanies()
     {
-        $companies = Company::where('debt', '>', 0)->orWhere('deposit', '<', 0)->get();
+        $companies = Company::query()
+            ->select([
+                'companies.*',
+                DB::raw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) as paid_amount'),
+                DB::raw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0) as debt'),
+                DB::raw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) - COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0) as deposit')
+            ])
+            ->with(['sales', 'payments'])
+            ->where(function ($query) {
+                $query->whereRaw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0) > 0')
+                    ->orWhereRaw('COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NOT NULL), 0) - COALESCE((SELECT SUM(amount) FROM payments WHERE payments.company_id = companies.id AND payments.sale_id IS NULL), 0) < 0');
+            })
+            ->get();
 
         return CompanyResource::collection($companies);
     }

@@ -16,8 +16,6 @@ class CreateCompanyAction{
         $company->name = $request->name;
         $company->phone = $request->phone;
         $company->address = $request->address;
-        $company->deposit = $request->deposit ?? 0;
-        $company->company_id = $request->company_id;
         $company->save();
 
         return new CompanyResource($company);
