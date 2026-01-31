@@ -13,19 +13,14 @@ class CompanyResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $paidAmount = (float) ($this->paid_amount ?? 0);
-        $debt = (float) ($this->debt ?? 0);
-        $deposit = $paidAmount - $debt;
 
         return [
             'id' => $this->id,
             'name' => $this->name,
             'phone' => $this->phone,
             'address' => $this->address,
-            'paid_amount' => $this->paid_amount,
-            'sold_amount' => $this->sold_amount,
-            'debt' => $debt,
-            'deposit' => $deposit,
+            'paid_amount' => $this->paid_amount ?? 0,
+            'sold_amount' => $this->sold_amount ?? 0,
             'sales' => SaleResource::collection($this->sales),
             'payments' => PaymentResource::collection($this->payments),
         ];
