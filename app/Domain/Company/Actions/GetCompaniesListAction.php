@@ -20,6 +20,7 @@ class GetCompaniesListAction
         $query = Company::query()
             ->withSum('payments as paid_amount', 'amount');
 
+        $query->withSum('sales as sold_amount', 'summa');
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
