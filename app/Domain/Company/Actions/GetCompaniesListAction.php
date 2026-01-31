@@ -19,14 +19,9 @@ class GetCompaniesListAction
         $search = isset($validated['search']) ? strtolower(trim($validated['search'])) : '';
 
         $query = Company::query()
-            ->withSum(['payments as paid_amount' => function ($query) {
-                $query->whereNotNull('sale_id');
-            }], 'amount')
-            ->withSum(['payments as debt' => function ($query) {
-                $query->whereNull('sale_id');
-            }], 'amount');
+            ->withSum('payments as paid_amount', 'amount')
+            ->withSum('payments as due_amount', 'summa');
 
-        $query->withSum('sales as sold_amount', 'summa');
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
