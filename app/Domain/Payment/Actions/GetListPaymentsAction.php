@@ -22,7 +22,7 @@ class GetListPaymentsAction
         $to = $validated['to_date'] ?? null;
         $search = strtolower($validated['search'] ?? '');
 
-        $query = Payment::with(['companies' , 'user']);
+        $query = Payment::with(['company' , 'user']);
 
         if ($from && $to) {
             $query->whereBetween('created_at', [$from, $to]);
@@ -35,7 +35,7 @@ class GetListPaymentsAction
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->whereRaw('LOWER(uuid) LIKE ?', ["%{$search}%"])
-                    ->orWhereHas('companies', function ($sub) use ($search) {
+                    ->orWhereHas('company', function ($sub) use ($search) {
                         $sub->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"]);
                     });
             });

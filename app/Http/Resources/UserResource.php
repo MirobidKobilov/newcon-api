@@ -20,7 +20,6 @@ class UserResource extends JsonResource
             'token' => $this->token,
             'phone' => $this->phone,
             'roles' => $this->getRoleNames(),
-            'permissions' => $this->getAllPermissions()->pluck('name'),
             'menu' => $this->menu,
         ];
     }

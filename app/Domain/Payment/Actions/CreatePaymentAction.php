@@ -51,7 +51,7 @@ class CreatePaymentAction
             }
 
 
-            return new PaymentResource($payment->load('companies', 'user'));
+            return new PaymentResource($payment->load('company', 'user'));
         });
     }
 }

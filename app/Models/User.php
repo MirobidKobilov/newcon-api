@@ -73,15 +73,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Expance::class);
     }
-
-    public function sale()
-    {
-        return $this->hasMany(Sale::class , 'added_user_id');
-    }
-
-    public function payment()
-    {
-        return $this->hasMany(Payment::class , 'added_user_id');
-    }
-
 }
