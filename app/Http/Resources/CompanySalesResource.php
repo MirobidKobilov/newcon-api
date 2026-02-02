@@ -16,6 +16,7 @@ class CompanySalesResource extends JsonResource
             'deposit' => $this->deposit,
             'total_payments' => $this->total_payments ?? 0,
             'sales' => SingleSaleResource::collection($this->sales),
+            'payments' => PaymentResource::collection($this->payments),
         ];
     }
 }

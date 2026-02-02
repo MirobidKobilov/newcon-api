@@ -18,20 +18,9 @@ class CompanyService
     public function getCompanySales($id)
     {
         $company = Company::with([
-            'sales.payments',
+            'payments',
             'sales.products'
-        ])
-            ->selectRaw('
-        companies.*,
-        (
-            SELECT COALESCE(SUM(payments.amount), 0)
-            FROM payments
-            INNER JOIN sales ON payments.sale_id = sales.id
-            WHERE sales.company_id = companies.id
-            AND payments.sale_id IS NOT NULL
-        ) as total_payments
-    ')
-            ->findOrFail($id);
+        ])->findOrFail($id);
 
         return new CompanySalesResource($company);
     }
