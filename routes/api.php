@@ -96,6 +96,7 @@ Route::prefix('companies')->group(function () {
     Route::delete('delete/{id}', [CompanyController::class, 'delete']);
     Route::get('export', [CompanyController::class, 'export']);
     Route::get('show/{id}', [CompanyController::class, 'show']);
+    
 });
 
 Route::prefix('expances')->group(function () {
